@@ -48,6 +48,6 @@ public class AuthController {
             return "register";
         }
         staffService.saveStaff(staff);
-        return "redirect:/login?success";
+        return "redirect:/login?registerSuccess";
     }
 }

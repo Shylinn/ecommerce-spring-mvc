@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/register/**", "/clubs", "/css/**", "/images/**", "/js/**", "/vendor/**")
+                        .requestMatchers("/login", "/register/**", "/clubs", "/css/**", "/images/**", "/js/**", "/vendor/**","/test/**")
                         .permitAll()
                 )
                 .authorizeHttpRequests(request -> request
@@ -40,13 +40,15 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index?loginSuccess",true)  // always use = true, nếu không trang web sẽ lỗi
+                        .defaultSuccessUrl("/index?loginSuccess=true",true)  // always use = true, nếu không trang web sẽ lỗi
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
                 ).logout(
                         logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/login?logoutSuccess=true")
+                                .permitAll()
                 );
 
         return http.build();
