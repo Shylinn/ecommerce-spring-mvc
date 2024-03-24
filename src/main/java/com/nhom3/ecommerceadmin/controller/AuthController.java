@@ -1,8 +1,8 @@
-package com.rungroop.web.controller;
+package com.nhom3.ecommerceadmin.controller;
 
-import com.rungroop.web.dto.RegistrationDto;
-import com.rungroop.web.models.UserEntity;
-import com.rungroop.web.service.UserService;
+import com.nhom3.ecommerceadmin.dto.RegistrationDto;
+import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.service.StaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +14,10 @@ import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
-    private UserService userService;
+    private StaffService staffService;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    public AuthController(StaffService staffService) {
+        this.staffService = staffService;
     }
 
     @GetMapping("/login")
@@ -27,27 +27,27 @@ public class AuthController {
 
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
-        RegistrationDto user = new RegistrationDto();
-        model.addAttribute("user", user);
+        RegistrationDto staff = new RegistrationDto();
+        model.addAttribute("staff", staff);
         return "register";
     }
 
     @PostMapping("/register/save")
-    public String register(@Valid @ModelAttribute("user")RegistrationDto user,
+    public String register(@Valid @ModelAttribute("staff")RegistrationDto staff,
                            BindingResult result, Model model) {
-        UserEntity existingUserEmail = userService.findByEmail(user.getEmail());
+        Staff existingUserEmail = staffService.findByEmail(staff.getEmail());
         if(existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
             return "redirect:/register?fail";
         }
-        UserEntity existingUserUsername = userService.findByUsername(user.getUsername());
+        Staff existingUserUsername = staffService.findByUsername(staff.getUsername());
         if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()) {
             return "redirect:/register?fail";
         }
         if(result.hasErrors()) {
-            model.addAttribute("user", user);
+            model.addAttribute("staff", staff);
             return "register";
         }
-        userService.saveUser(user);
-        return "redirect:/clubs?success";
+        staffService.saveStaff(staff);
+        return "redirect:/login?success";
     }
 }

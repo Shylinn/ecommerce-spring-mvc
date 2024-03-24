@@ -1,43 +1,38 @@
 package com.nhom3.ecommerceadmin.models;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
-@Table(name = "clubs")
-public class Club {
+@Entity(name = "products")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private String name;
     private String photoUrl;
-    private String content;
+    private String unit;
+    private Long price;
+    private String author;
+    private String publisher;
+    private String genre;
 
     @CreationTimestamp
     private LocalDateTime createdOn;
-
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
-    private Staff createdBy;
-
-    @OneToMany(mappedBy = "club", cascade = CascadeType.REMOVE)
-    private List<Event> events = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private Set<BillDetails> details;
 }

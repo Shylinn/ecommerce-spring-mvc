@@ -1,6 +1,6 @@
-package com.rungroop.web.repository;
+package com.nhom3.ecommerceadmin.repository;
 
-import com.rungroop.web.models.Role;
+import com.nhom3.ecommerceadmin.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {

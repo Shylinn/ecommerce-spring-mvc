@@ -1,6 +1,6 @@
-package com.rungroop.web.dto;
+package com.nhom3.ecommerceadmin.dto;
 
-import com.rungroop.web.models.Club;
+import com.nhom3.ecommerceadmin.models.Club;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

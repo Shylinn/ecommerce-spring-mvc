@@ -1,7 +1,7 @@
-package com.rungroop.web.security;
+package com.nhom3.ecommerceadmin.security;
 
-import com.rungroop.web.models.UserEntity;
-import com.rungroop.web.repository.UserRepository;
+import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,26 +14,26 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private StaffRepository staffRepository;
 
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CustomUserDetailsService(StaffRepository staffRepository) {
+        this.staffRepository = staffRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findFirstByUsername(username);
+        Staff user = staffRepository.findFirstByUsername(username);
         if(user != null) {
             User authUser = new User(
-                    user.getEmail(),
+                    user.getUsername(),
                     user.getPassword(),
                     user.getRoles().stream().map((role) -> new SimpleGrantedAuthority(role.getName()))
                             .collect(Collectors.toList())
             );
             return authUser;
         } else {
-            throw new UsernameNotFoundException("Invalid username or password");
+            throw new UsernameNotFoundException("Sai tên đăng nhập hoặc mật khẩu");
         }
     }
 }
