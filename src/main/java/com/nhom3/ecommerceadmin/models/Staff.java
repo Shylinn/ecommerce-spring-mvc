@@ -31,7 +31,6 @@ public class Staff {
     private String phoneNum;
     private String idCardNum;
     private String address;
-    private Double sales;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -40,6 +39,16 @@ public class Staff {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
+
+    @Transient // Exclude from persistence
+    private Double sales;
+
+    public Double getSales() {
+        return this.bills.stream().mapToDouble(Bill::getValue).sum();
+    }
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.REMOVE)
+    private List<Bill> bills = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdOn;

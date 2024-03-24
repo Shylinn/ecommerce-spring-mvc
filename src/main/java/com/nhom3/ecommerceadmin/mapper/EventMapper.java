@@ -1,7 +1,7 @@
-package com.rungroop.web.mapper;
+package com.nhom3.ecommerceadmin.mapper;
 
-import com.rungroop.web.dto.EventDto;
-import com.rungroop.web.models.Event;
+import com.nhom3.ecommerceadmin.dto.EventDto;
+import com.nhom3.ecommerceadmin.models.Event;
 
 public class EventMapper {
     public static Event mapToEvent(EventDto eventDto) {

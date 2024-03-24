@@ -1,13 +1,13 @@
-package com.rungroop.web.controller;
+package com.nhom3.ecommerceadmin.controller;
 
-import com.rungroop.web.dto.ClubDto;
-import com.rungroop.web.dto.EventDto;
-import com.rungroop.web.models.Event;
-import com.rungroop.web.models.UserEntity;
-import com.rungroop.web.security.SecurityUtil;
-import com.rungroop.web.service.ClubService;
-import com.rungroop.web.service.EventService;
-import com.rungroop.web.service.UserService;
+import com.nhom3.ecommerceadmin.dto.ClubDto;
+import com.nhom3.ecommerceadmin.dto.EventDto;
+import com.nhom3.ecommerceadmin.models.Event;
+import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.security.SecurityUtil;
+import com.nhom3.ecommerceadmin.service.ClubService;
+import com.nhom3.ecommerceadmin.service.EventService;
+import com.nhom3.ecommerceadmin.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,22 +24,22 @@ import java.util.List;
 public class EventController {
 
     private EventService eventService;
-    private UserService userService;
+    private StaffService StaffService;
     private ClubService clubService;
 
     @Autowired
-    public EventController(EventService eventService, UserService userService) {
-        this.userService = userService;
+    public EventController(EventService eventService, StaffService StaffService) {
+        this.StaffService = StaffService;
         this.eventService = eventService;
     }
 
     @GetMapping("/events")
     public String eventList(Model model) {
-        UserEntity user = new UserEntity();
+        Staff user = new Staff();
         List<EventDto> events = eventService.findAllEvents();
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = userService.findByUsername(username);
+            user = StaffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
@@ -49,11 +49,11 @@ public class EventController {
 
     @GetMapping("/events/{eventId}")
     public String viewEvent(@PathVariable("eventId")Long eventId, Model model) {
-        UserEntity user = new UserEntity();
+        Staff user = new Staff();
         EventDto eventDto = eventService.findByEventId(eventId);
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = userService.findByUsername(username);
+            user = StaffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("club", eventDto.getClub());

@@ -15,24 +15,28 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "products")
-public class Product {
+@Entity(name = "bills")
+public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String photoUrl;
-    private String unit;
-    private Long price;
-    private String author;
-    private String publisher;
-    private String genre;
 
     @CreationTimestamp
-    private LocalDateTime createdOn;
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    private Double value;
+
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "bill")
     private Set<BillDetails> details;
 }

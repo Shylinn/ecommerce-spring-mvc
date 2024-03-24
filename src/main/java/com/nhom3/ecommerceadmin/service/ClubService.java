@@ -1,7 +1,7 @@
-package com.rungroop.web.service;
+package com.nhom3.ecommerceadmin.service;
 
-import com.rungroop.web.dto.ClubDto;
-import com.rungroop.web.models.Club;
+import com.nhom3.ecommerceadmin.dto.ClubDto;
+import com.nhom3.ecommerceadmin.models.Club;
 
 import java.util.List;
 

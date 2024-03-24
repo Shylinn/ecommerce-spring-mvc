@@ -1,4 +1,4 @@
-package com.rungroop.web.security;
+package com.nhom3.ecommerceadmin.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,12 +31,16 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/register/**", "/clubs", "/css/**", "/js/**")
+                        .requestMatchers("/login", "/register/**", "/clubs", "/css/**", "/images/**", "/js/**", "/vendor/**")
                         .permitAll()
+                )
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/index")
+                        .authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/clubs")
+                        .defaultSuccessUrl("/index?loginSuccess",true)  // always use = true, nếu không trang web sẽ lỗi
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
@@ -47,7 +51,9 @@ public class SecurityConfig {
 
         return http.build();
     }
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+
+//    @Override
+//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+//        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//    }
 }

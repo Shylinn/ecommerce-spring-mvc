@@ -24,14 +24,21 @@ public class Customer {
     private Long id;
     private String fullName;
     private String address;
-
     private String phoneNum;
-
     private String email;
     private LocalDate dayOfBirth;
+
     @CreationTimestamp
     private LocalDateTime registeredAt;
+
+    @Transient // Exclude from persistence
     private Double sales;
+    public Double getSales() {
+        return this.bills.stream().mapToDouble(Bill::getValue).sum();
+    }
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    private List<Bill> bills = new ArrayList<>();
 
     @UpdateTimestamp
     private LocalDateTime updatedOn;
