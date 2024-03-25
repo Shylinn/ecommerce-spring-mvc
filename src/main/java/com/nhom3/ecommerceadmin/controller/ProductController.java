@@ -21,15 +21,24 @@ import java.util.List;
 @Controller
 public class ProductController {
     private ProductService productService;
+    private StaffService staffService;
 
     @Autowired
-    public ProductController(ProductService productService, StaffService StaffService) {
+    public ProductController(ProductService productService, StaffService staffService) {
         this.productService = productService;
+        this.staffService = staffService;
     }
 
 
     @GetMapping("/product/new")
     public String createProductForm(Model model) {
+        String username = SecurityUtil.getSessionUser();
+        Staff staff = new Staff();
+        if(username != null) {
+            staff = staffService.findByUsername(username);
+            model.addAttribute("staff", staff);
+        }
+        model.addAttribute("staff", staff);
         Product product = new Product();
         model.addAttribute("product", product);
         return "product-create";
