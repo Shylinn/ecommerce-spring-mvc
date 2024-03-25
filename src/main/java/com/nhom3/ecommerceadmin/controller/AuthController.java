@@ -2,6 +2,7 @@ package com.nhom3.ecommerceadmin.controller;
 
 import com.nhom3.ecommerceadmin.dto.RegistrationDto;
 import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.security.SecurityUtil;
 import com.nhom3.ecommerceadmin.service.StaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,20 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage(){
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            return "redirect:/index";
+        }
         return "login";
     }
 
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
         RegistrationDto staff = new RegistrationDto();
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            return "redirect:/index";
+        }
         model.addAttribute("staff", staff);
         return "register";
     }

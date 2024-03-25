@@ -18,11 +18,11 @@ import java.util.List;
 @Controller
 public class ClubController {
     private ClubService clubService;
-    private StaffService StaffService;
+    private StaffService staffService;
 
     @Autowired
-    public ClubController(ClubService clubService, StaffService StaffService) {
-        this.StaffService = StaffService;
+    public ClubController(ClubService clubService, StaffService staffService) {
+        this.staffService = staffService;
         this.clubService = clubService;
     }
 
@@ -32,7 +32,7 @@ public class ClubController {
         List<ClubDto> clubs = clubService.findAllClubs();
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = StaffService.findByUsername(username);
+            user = staffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
@@ -46,7 +46,7 @@ public class ClubController {
         ClubDto clubDto = clubService.findClubById(clubId);
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = StaffService.findByUsername(username);
+            user = staffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
