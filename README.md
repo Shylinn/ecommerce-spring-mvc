@@ -8,6 +8,8 @@ Một số nội dung mình đề xuất:
     + Spring Data JPA (Hibernate) -> để giao tiếp database theo kiểu ORM
     + Bootstrap
     + Javascript
+    + Thymeleaf Security
     +  POS Dash Theme
     +  Thư mục dự án tham khảo (xem để tìm hiểu, không copy rồi sửa lại, mà team sẽ code lại dự án từ đầu):   https://github.com/yasnmert/bootsecurity
 Mọi người góp ý nha @All
+
