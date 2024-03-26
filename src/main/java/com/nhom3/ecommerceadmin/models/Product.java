@@ -19,12 +19,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String code;
     private String photoUrl;
     private String unit;
+    private String quantity;
     private Long price;
     private String author;
     private String publisher;
     private String genre;
+    private String description;
 
     @CreationTimestamp
     private LocalDateTime createdOn;
