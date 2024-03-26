@@ -12,6 +12,7 @@ import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,8 +31,10 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
     private StaffService staffService;
-//    private ImageService imageService;
     private ImageRepository imageRepository;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @Autowired
     public ProductController(ProductService productService, StaffService staffService, ImageRepository imageRepository) {
@@ -68,13 +71,12 @@ public class ProductController {
                 // Save the uploaded photo to a directory
                 Image image = new Image();
                 image.setImageName(photo.getOriginalFilename());
-//                imageService.saveImage(image);
                 imageRepository.save(image);
-//                System.out.println(new ClassPathResource("").getFile().getAbsolutePath());
-//                System.out.println(new ClassPathResource("/static/uploadImg").getFile().getAbsolutePath());
-                File saveFile = new ClassPathResource("static/uploadImg").getFile();
-                Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+ photo.getOriginalFilename());
+                String uploadFolderPath = new ClassPathResource("static/uploadImg").getFile().getAbsolutePath();
+
+                Path path = Paths.get(uploadFolderPath, photo.getOriginalFilename());
                 Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
                 productDto.setPhotoUrl(path.toFile().getPath());
             } catch (IOException e) {
                 e.printStackTrace();

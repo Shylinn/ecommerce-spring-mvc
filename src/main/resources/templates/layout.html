@@ -58,7 +58,7 @@
             </a>
             <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
               <li class="">
-                <a h:href="@{/products}">
+                <a th:href="@{/products}">
                   <i class="las la-minus"></i><span>Danh sách sản phẩm</span>
                 </a>
               </li>
@@ -574,16 +574,16 @@
           </li>
         </ul>
       </nav>
-      <div id="sidebar-bottom" class="position-relative sidebar-bottom">
-        <div class="card border-none">
-          <div class="card-body p-0">
-            <div class="sidebarbottom-content">
-              <a sec:authorize="!isAuthenticated()" type="button" class="btn sidebar-bottom-btn mt-4" th:href="@{/register}">Tạo tài khoản</a>
-              <a sec:authorize="!isAuthenticated()" type="button" class="btn sidebar-bottom-btn mt-4" th:href="@{/login}">Đăng nhập</a>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div id="sidebar-bottom" class="position-relative sidebar-bottom">-->
+<!--        <div class="card border-none">-->
+<!--          <div class="card-body p-0">-->
+<!--            <div class="sidebarbottom-content">-->
+<!--              <a sec:authorize="!isAuthenticated()" type="button" class="btn sidebar-bottom-btn mt-4" th:href="@{/register}">Tạo tài khoản</a>-->
+<!--              <a sec:authorize="!isAuthenticated()" type="button" class="btn sidebar-bottom-btn mt-4" th:href="@{/login}">Đăng nhập</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="p-3"></div>
 
     </div>
@@ -599,13 +599,13 @@
 
         </a>
       </div>
-      <div class="iq-search-bar device-search" sec:authorize="isAuthenticated()" >
+      <div class="iq-search-bar device-search">
         <form action="#" class="searchbox">
           <a class="search-link" href="#"><i class="ri-search-line"></i></a>
           <input type="text" class="text search-input" placeholder="Tìm kiếm...">
         </form>
       </div>
-      <div class="d-flex align-items-center" sec:authorize="isAuthenticated()">
+      <div class="d-flex align-items-center">
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-label="Toggle navigation">
@@ -649,6 +649,8 @@
                       <div class="d-flex align-items-center justify-content-center mt-3">
                         <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="btn border">Thông tin tài khoản</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn border">Đăng xuất</a>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn border">Tạo tài khoản</a>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn border">Đăng nhập</a>
                       </div>
                     </div>
                   </div>
