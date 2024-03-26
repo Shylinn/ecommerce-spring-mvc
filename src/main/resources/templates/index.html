@@ -11,6 +11,9 @@
         <div th:if="${param.loginSuccess}" class="alert alert-success">
             Bạn đã đăng nhập thành công!
         </div>
+        <div th:if="${param.productCreateSuccess}" class="alert alert-success">
+            Tạo sản phẩm thành công!
+        </div>
 <!--        <div sec:authorize="isAuthenticated()" th:text="@{staff.fullName}" class="alert alert-success"></div>-->
 <!--        <div sec:authorize="isAuthenticated()" th:text="@{email}" class="alert alert-success"></div>-->
     </section>

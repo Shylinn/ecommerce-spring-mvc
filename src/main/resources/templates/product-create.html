@@ -4,130 +4,137 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Thêm sản phẩm mới</title>
+    <title>Thêm sản phẩm</title>
 </head>
 <div class="content-page" layout:fragment="body">
-    <div class="login-content container" >
-        <div class="row align-items-center justify-content-center height-self-center">
-            <div class="col-lg-8">
-                <div class="card auth-card">
-                    <div class="card-body p-0">
-                        <div class="d-flex align-items-center auth-content">
-                            <div class="col-lg-7 align-self-center">
-                                <div class="p-3">
-                                    <h2 class="mb-2">Tạo sản phẩm mới</h2>
-                                    <div th:if="${param.fail}" class="alert alert-success">
-                                        Đã có tài khoản trung tên đăng nhập hoặc email</div>
-                                    <form method="post" role="form" th:action="@{/product/new}" th:object="${product}">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input class="floating-input form-control"
-                                                           type="text"
-                                                           placeholder=" "
-                                                           name="name"
-                                                           id="name"
-                                                           th:field="*{name}"
-                                                    >
-                                                    <label>Tên sản phẩm</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="text"
-                                                            name="photoUrl"
-                                                            id="photoUrl"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{photoUrl}">
-                                                    <label>Link hình ảnh</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="text"
-                                                            name="unit"
-                                                            id="unit"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{unit}">
-                                                    <label>Đơn vị tính</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="number"
-                                                            name="price"
-                                                            id="price"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{price}">
-                                                    <label>Giá</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="text"
-                                                            name="author"
-                                                            id="author"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{author}">
-                                                    <label>Tác giả</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="text"
-                                                            name="publisher"
-                                                            id="publisher"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{publisher}">
-                                                    <label>Nhà xuất bản</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="floating-label form-group">
-                                                    <input
-                                                            type="text"
-                                                            name="genre"
-                                                            id="genre"
-                                                            class="floating-input form-control"
-                                                            placeholder=" "
-                                                            th:field="*{genre}">
-                                                    <label>Thể loại</label>
-                                                </div>
-                                            </div>
-
+        <div class="container-fluid add-form-list">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Thêm sản phảm</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" role="form" th:action="@{/products/new}" th:object="${product}" data-toggle="validator"
+                                  enctype="multipart/form-data">
+                                <div class="row">
+<!--                                    <div class="col-md-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Product Type *</label>-->
+<!--                                            <select name="type" class="selectpicker form-control" data-style="py-0">-->
+<!--                                                <option>Standard</option>-->
+<!--                                                <option>Combo</option>-->
+<!--                                                <option>Digital</option>-->
+<!--                                                <option>Service</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Tên sản phẩm *</label>-->
+<!--                                            <input type="text" class="form-control" placeholder="Nhập tên sản phẩm" data-errors="Hãy nhập tên sản phẩm" required-->
+<!--                                                   name="name" id="name" th:field="*{name}">-->
+<!--                                            <div class="help-block with-errors"></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tên sản phẩm *</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên sản phẩm"
+                                            name="name" id="name" th:field="*{name}">
+                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></div>
                                         </div>
-                                        <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
-                                        <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
-                                        <p th:if="${#fields.hasErrors('unit')}" class="text-danger" th:errors="*{unit}"></p>
-                                        <p th:if="${#fields.hasErrors('price')}" class="text-danger" th:errors="*{price}"></p>
-                                        <button type="submit" class="btn btn-primary">Tạo sản phẩm</button>
-                                    </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Mã sản phẩm *</label>
+                                            <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" data-errors="Hãy nhập mã sản phẩm."
+                                                   name="code" id="code" th:field="*{code}">
+                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p></div>
+                                        </div>
+                                    </div>
+<!--                                    <div class="col-md-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Link hình ảnh *</label>-->
+<!--                                            <input type="text" class="form-control" placeholder="Nhập link hình ảnh" data-errors="Hãy nhập link hình ảnh."-->
+<!--                                                   name="photoUrl" id="photoUrl" th:field="*{photoUrl}">-->
+<!--                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('photoUrl')}" th:errors="*{photoUrl}"></p></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Đơn vị tính *</label>
+                                            <select class="selectpicker form-control" data-style="py-0" name="unit" id="unit" th:field="*{unit}">
+                                                <option value="Quyển">Quyển</option>
+                                                <option value="Bộ">Bộ</option>
+                                                <option value="Khác">Khác</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Số lượng *</label>
+                                            <input type="number" class="form-control" placeholder="Nhập số lượng hàng còn lại" data-errors="Hãy nhập số lượng hàng còn lại."
+                                                   name="quantity" id="quantity" th:field="*{quantity}">
+                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Giá *</label>
+                                            <input type="number" class="form-control" placeholder="Nhập giá sản phẩm" data-errors="Hãy nhập giá sản phẩm."
+                                                   name="price" id="price" th:field="*{price}">
+                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tác giả</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên tác giả" data-errors="Hãy nhập tên tác giả."
+                                                   name="author" id="author" th:field="*{author}">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nhà xuất bản</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên Nhà xuất bản" data-errors="Hãy nhập tên Nhà xuất bản."
+                                                   name="publisher" id="publisher" th:field="*{publisher}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Thể loại</label>
+                                            <input type="text" class="form-control" placeholder="Nhập tên tác giả"
+                                                   name="genre" id="genre" th:field="*{genre}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Ảnh sản phẩm</label>
+                                            <input type="file" class="form-control image-file" accept="image/*"
+                                                   name="photo" id="photo">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Mô tả / chi tiết sản phẩm</label>
+                                            <textarea placeholder="Mô tả sản phẩm..." class="form-control" rows="4" name="description" id="description" th:field="*{description}"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-5 content-right">
-                                <img th:src="@{images/login/01.png}" class="img-fluid image-right" alt="">
-                            </div>
+                                <button type="submit" class="btn btn-primary mr-2">Thêm sản phẩm</button>
+                                <button type="reset" class="btn btn-danger">Xóa thông tin đã nhập</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 </html>
