@@ -39,6 +39,7 @@ public class HomeController {
     @GetMapping("/index")
     public String indexPage(Model model){
         SecurityUtil.addStaffToModel(model);
+        model.addAttribute("dashboardActive",true);
         return "index";
     }
 

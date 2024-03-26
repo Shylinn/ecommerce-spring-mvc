@@ -50,6 +50,7 @@ public class ProductController {
         SecurityUtil.addStaffToModel(model);
         Product product = new Product();
         model.addAttribute("product", product);
+        model.addAttribute("productActive",true);
         return "product-create";
     }
 
@@ -58,6 +59,7 @@ public class ProductController {
         SecurityUtil.addStaffToModel(model);
 //        List<ProductDto> products = productService.findAllProducts();
 //        model.addAttribute("products", products);
+        model.addAttribute("productActive",true);
         return "product-list";
     }
 
@@ -80,7 +82,7 @@ public class ProductController {
                 Path path = Paths.get(uploadFolderPath, photo.getOriginalFilename());
                 Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-                productDto.setPhotoUrl(path.toFile().getPath());
+                productDto.setPhotoUrl(photo.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }
