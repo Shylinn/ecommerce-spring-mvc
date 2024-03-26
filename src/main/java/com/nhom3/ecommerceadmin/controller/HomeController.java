@@ -9,6 +9,7 @@ import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,22 +27,18 @@ import java.nio.file.StandardCopyOption;
 public class HomeController {
     private StaffService staffService;
     private ImageRepository imageRepository;
+    private ResourceLoader resourceLoader;
 
     @Autowired
-    public HomeController(StaffService staffService, ImageRepository imageRepository) {
+    public HomeController(StaffService staffService, ImageRepository imageRepository,ResourceLoader resourceLoader) {
         this.staffService = staffService;
         this.imageRepository = imageRepository;
+        this.resourceLoader = resourceLoader;
     }
 
     @GetMapping("/index")
     public String indexPage(Model model){
-        Staff staff = new Staff();
-        String username = SecurityUtil.getSessionUser();
-        if(username != null) {
-            staff = staffService.findByUsername(username);
-            model.addAttribute("staff", staff);
-        }
-        model.addAttribute("staff", staff);
+        SecurityUtil.addStaffToModel(model);
         return "index";
     }
 
@@ -53,8 +50,12 @@ public class HomeController {
             imageRepository.save(image);
             File saveFile = new ClassPathResource("static/uploadImg").getFile();
             Path path = Paths.get(saveFile.getAbsolutePath()+File.separator+ photoUrl.getOriginalFilename());
-            Files.copy(photoUrl.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
+            String staticFolderPath = resourceLoader.getResource("classpath:static").getFile().getAbsolutePath();
+            Path devPath = Paths.get(staticFolderPath+File.separator+ photoUrl.getOriginalFilename());
+
+            Files.copy(photoUrl.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(photoUrl.getInputStream(), devPath, StandardCopyOption.REPLACE_EXISTING);
         }catch(Exception ex){
             ex.printStackTrace();
         }

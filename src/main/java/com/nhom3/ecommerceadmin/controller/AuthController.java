@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
 
+import java.util.Objects;
+
 @Controller
 public class AuthController {
     private StaffService staffService;
@@ -54,8 +56,12 @@ public class AuthController {
         }
         if(result.hasErrors()) {
             model.addAttribute("staff", staff);
+            if(!Objects.equals(staff.getPasswordConfirm(), staff.getPassword())) {
+                model.addAttribute("wrongPwConfirm", "wrongPwConfirm");
+            }
             return "register";
         }
+
         staffService.saveStaff(staff);
         return "redirect:/login?registerSuccess";
     }

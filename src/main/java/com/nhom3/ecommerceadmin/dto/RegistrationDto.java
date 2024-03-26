@@ -10,14 +10,16 @@ import java.time.LocalDate;
 @Data
 public class RegistrationDto {
     private Long id;
-    @NotEmpty
+    @NotEmpty(message = "Nhập họ và tên")
     private String fullName;
-    @NotEmpty
+    @NotEmpty(message = "Nhập tên đăng nhập")
     private String username;
-    @NotEmpty
+    @NotEmpty(message = "Nhập email")
     private String email;
-    @NotEmpty
+    @NotEmpty(message = "Nhập mật khẩu")
     private String password;
+    @NotEmpty(message = "Nhập lại mật khẩu")
+    private String passwordConfirm;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDate joinOn;  // ngày vào làm ở công ty
     private String phoneNum;
