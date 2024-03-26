@@ -1,5 +1,6 @@
 package com.nhom3.ecommerceadmin.controller;
 
+import com.nhom3.ecommerceadmin.dto.ClubDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
@@ -46,16 +47,18 @@ public class ProductController {
 
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
-        String username = SecurityUtil.getSessionUser();
-        Staff staff = new Staff();
-        if(username != null) {
-            staff = staffService.findByUsername(username);
-            model.addAttribute("staff", staff);
-        }
-        model.addAttribute("staff", staff);
+        SecurityUtil.addStaffToModel(model);
         Product product = new Product();
         model.addAttribute("product", product);
         return "product-create";
+    }
+
+    @GetMapping("/products")
+    public String listProductPage(Model model) {
+        SecurityUtil.addStaffToModel(model);
+//        List<ProductDto> products = productService.findAllProducts();
+//        model.addAttribute("products", products);
+        return "product-list";
     }
 
     @PostMapping("/products/new")
