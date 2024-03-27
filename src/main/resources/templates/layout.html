@@ -38,15 +38,17 @@
     <div class="data-scrollbar" data-scroll="1">
       <nav class="iq-sidebar-menu">
         <ul id="iq-sidebar-toggle" class="iq-menu">
-          <li class="active">
-            <a href="../backend/index.html" class="svg-icon">
+          <li class=" ">
+<!--          <li th:class="${dashboardActive ? 'active':''}">-->
+            <a th:href="@{/index}" class="svg-icon">
               <svg  class="svg-icon" id="p-dash1" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>
               </svg>
               <span class="ml-4">Trang tổng quan</span>
             </a>
           </li>
-          <li class=" ">
+          <li class="active">
+<!--            th:class="${productActive ? 'active':''}"-->
             <a href="#product" class="collapsed" data-toggle="collapse" aria-expanded="false">
               <svg class="svg-icon" id="p-dash2" width="20" height="20"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -643,13 +645,13 @@
                            class="rounded profile-img img-fluid avatar-70">
                     </div>
                     <div class="p-3">
-                      <h5 sec:authorize="isAuthenticated()" class="mb-1" th:text="${staff.fullName}"></h5>
-                      <p sec:authorize="isAuthenticated()" class="mb-0" th:text="${staff.username}"></p>
-                      <p sec:authorize="isAuthenticated()" class="mb-0" th:text="${staff.email}"></p>
+                      <h5 sec:authorize="isAuthenticated()" class="mb-1" th:text="${session.staff.fullName}" th:unless="${session.staff == null}"></h5>
+                      <p sec:authorize="isAuthenticated()" class="mb-0" th:text="${session.staff.username}" th:unless="${session.staff == null}"></p>
+                      <p sec:authorize="isAuthenticated()" class="mb-0" th:text="${session.staff.email}" th:unless="${session.staff == null}"></p>
                       <div class="d-flex align-items-center justify-content-center mt-3">
-                        <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="btn border">Thông tin tài khoản</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="btn border mr-2">Xem hồ sơ</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn border">Đăng xuất</a>
-                        <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn border">Tạo tài khoản</a>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn border mr-2">Tạo tài khoản</a>
                         <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn border">Đăng nhập</a>
                       </div>
                     </div>

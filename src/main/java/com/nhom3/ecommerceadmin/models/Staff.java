@@ -42,7 +42,6 @@ public class Staff {
 
     @Transient // Exclude from persistence
     private Double sales;
-
     public Double getSales() {
         return this.bills.stream().mapToDouble(Bill::getValue).sum();
     }
