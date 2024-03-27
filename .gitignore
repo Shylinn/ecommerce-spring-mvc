@@ -11,7 +11,7 @@ target/classes/static/vendor
 target/classes/templates
 target/classes/application.properties
 
-
+**/static.rar
 
 
 !.mvn/wrapper/maven-wrapper.jar

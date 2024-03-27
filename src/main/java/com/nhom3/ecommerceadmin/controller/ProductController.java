@@ -3,23 +3,18 @@ package com.nhom3.ecommerceadmin.controller;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
-import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
-import com.nhom3.ecommerceadmin.security.SecurityUtil;
-import com.nhom3.ecommerceadmin.service.ImageService;
 import com.nhom3.ecommerceadmin.service.ProductService;
 import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,15 +29,11 @@ public class ProductController {
     private ImageRepository imageRepository;
 
     @Autowired
-    private ResourceLoader resourceLoader;
-
-    @Autowired
     public ProductController(ProductService productService, StaffService staffService, ImageRepository imageRepository) {
         this.productService = productService;
         this.staffService = staffService;
         this.imageRepository = imageRepository;
     }
-
 
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
@@ -64,7 +55,7 @@ public class ProductController {
     public String saveProduct(@Valid @ModelAttribute("product") ProductDto productDto
             , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo) {
         if(result.hasErrors()) {
-            model.addAttribute("product", productDto);
+//            model.addAttribute("product", productDto);
             return "product-create";
         }
         if(!photo.isEmpty()){
