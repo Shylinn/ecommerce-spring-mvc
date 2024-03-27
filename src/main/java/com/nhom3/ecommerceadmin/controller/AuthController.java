@@ -4,6 +4,10 @@ import com.nhom3.ecommerceadmin.dto.RegistrationDto;
 import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.security.SecurityUtil;
 import com.nhom3.ecommerceadmin.service.StaffService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +34,19 @@ public class AuthController {
             return "redirect:/index";
         }
         return "login";
+    }
+
+    @GetMapping("/login-success")
+    public String loginSuccess(HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Staff staff = staffService.findByUsername(username);
+
+        // Lưu thông tin người dùng vào session
+        HttpSession session = request.getSession();
+        session.setAttribute("staff", staff);
+
+        return "redirect:/index?loginSuccess=true"; // Điều hướng tới trang home sau khi đăng nhập thành công
     }
 
     @GetMapping("/register")

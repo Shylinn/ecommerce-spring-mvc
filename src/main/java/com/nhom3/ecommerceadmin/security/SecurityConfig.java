@@ -40,7 +40,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index?loginSuccess=true",true)  // always use = true, nếu không trang web sẽ lỗi
+                        .defaultSuccessUrl("/login-success", true)  // always use = true, nếu không trang web sẽ lỗi
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()

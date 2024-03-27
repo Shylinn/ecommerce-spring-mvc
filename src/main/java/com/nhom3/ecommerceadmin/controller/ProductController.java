@@ -1,6 +1,5 @@
 package com.nhom3.ecommerceadmin.controller;
 
-import com.nhom3.ecommerceadmin.dto.ClubDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
@@ -47,7 +46,6 @@ public class ProductController {
 
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
-        SecurityUtil.addStaffToModel(model);
         Product product = new Product();
         model.addAttribute("product", product);
         model.addAttribute("productActive",true);
@@ -56,17 +54,15 @@ public class ProductController {
 
     @GetMapping("/products")
     public String listProductPage(Model model) {
-        SecurityUtil.addStaffToModel(model);
-//        List<ProductDto> products = productService.findAllProducts();
-//        model.addAttribute("products", products);
-        model.addAttribute("productActive",true);
+        List<ProductDto> products = productService.findAllProducts();
+        model.addAttribute("products", products);
+//        model.addAttribute("productActive",true);
         return "product-list";
     }
 
     @PostMapping("/products/new")
     public String saveProduct(@Valid @ModelAttribute("product") ProductDto productDto
             , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo) {
-        SecurityUtil.addStaffToModel(model);
         if(result.hasErrors()) {
             model.addAttribute("product", productDto);
             return "product-create";

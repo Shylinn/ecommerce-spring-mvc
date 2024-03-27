@@ -38,9 +38,12 @@ public class HomeController {
 
     @GetMapping("/index")
     public String indexPage(Model model){
-        SecurityUtil.addStaffToModel(model);
-        model.addAttribute("dashboardActive",true);
+//        model.addAttribute("dashboardActive",true);
         return "index";
+    }
+    @GetMapping("/")
+    public String rootPage(Model model){
+        return "redirect:/index";
     }
 
     @PostMapping("/imgUpload")
@@ -61,7 +64,7 @@ public class HomeController {
             ex.printStackTrace();
         }
 
-        session.setAttribute("msg", "Image Upload Sucessfully");
+        session.setAttribute("msg", "Đã upload hình ảnh");
 
         return "redirect:/";
     }
