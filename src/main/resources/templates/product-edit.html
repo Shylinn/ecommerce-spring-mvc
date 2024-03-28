@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Sửa thông tin sản phẩm</title>
+</head>
+<div class="content-page" layout:fragment="body">
+        <div class="container-fluid add-form-list">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Sửa thông tin sản phẩm</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" role="form" th:action="@{/products/update}" th:object="${product}" data-toggle="validator"
+                                  enctype="multipart/form-data">
+                                <div class="row">
+                                    <input type="hidden" class="form-control" name="id" id="id" th:field="*{id}">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Ảnh sản phẩm</label>
+                                                    <input type="file" class="form-control image-file" accept="image/*"
+                                                           name="photo" id="photo">
+                                                    <div class="image-preview-container">
+                                                        <img th:src="@{'/uploadImg/' + ${product.photoUrl}}" th:if="${!#strings.isEmpty(product.photoUrl)}" alt="Product Photo" th:id="image-preview" width="200" />
+                                                        <img src="https://picsum.photos/500/500" th:if="${#strings.isEmpty(product.photoUrl)}" alt="Product Photo" th:id="image-preview" width="200" />
+                                                        <input type="hidden" id="delete-image" value="false">
+                                                        <a id="deletePhoto" class="btn btn-primary bg-warning"><i class="ri-delete-bin-line mr-0" onclick="deletePhoto()">Xóa ảnh sản phẩm</i></a>
+                                                        <a style="display: none" id="restorePhoto" class="btn btn-primary bg-success"><i class="ri-rotate-lock-fill mr-0" onclick="restorePhoto()">Khôi phục ảnh</i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tên sản phẩm *</label>
+                                                <input type="text" class="form-control" placeholder="Nhập tên sản phẩm"
+                                                       name="name" id="name" th:field="*{name}">
+                                                <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Mã sản phẩm *</label>
+                                                <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" data-errors="Hãy nhập mã sản phẩm."
+                                                       name="code" id="code" th:field="*{code}">
+                                                <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Đơn vị tính *</label>
+                                                <select class="selectpicker form-control" data-style="py-0" name="unit" id="unit" th:field="*{unit}">
+                                                    <option value="Quyển">Quyển</option>
+                                                    <option value="Bộ">Bộ</option>
+                                                    <option value="Khác">Khác</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Số lượng *</label>
+                                                <input type="number" class="form-control" placeholder="Nhập số lượng hàng còn lại" data-errors="Hãy nhập số lượng hàng còn lại."
+                                                       name="quantity" id="quantity" th:field="*{quantity}">
+                                                <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Giá *</label>
+                                                <input type="number" class="form-control" placeholder="Nhập giá sản phẩm" data-errors="Hãy nhập giá sản phẩm."
+                                                       name="price" id="price" th:field="*{price}">
+                                                <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Tác giả</label>
+                                                <input type="text" class="form-control" placeholder="Nhập tên tác giả" data-errors="Hãy nhập tên tác giả."
+                                                       name="author" id="author" th:field="*{author}">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nhà xuất bản</label>
+                                                <input type="text" class="form-control" placeholder="Nhập tên Nhà xuất bản" data-errors="Hãy nhập tên Nhà xuất bản."
+                                                       name="publisher" id="publisher" th:field="*{publisher}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Thể loại</label>
+                                                <input type="text" class="form-control" placeholder="Nhập tên tác giả"
+                                                       name="genre" id="genre" th:field="*{genre}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Mô tả / chi tiết sản phẩm</label>
+                                                <textarea placeholder="Mô tả sản phẩm..." class="form-control" rows="4" name="description" id="description" th:field="*{description}"></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2">Cập nhật thông tin sản phẩm</button>
+                                <button type="reset" class="btn btn-danger">Nhập lại thông tin</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script>
+        function deletePhoto() {
+            // Hide the deletePhoto link and the image previews
+            document.getElementById('deletePhoto').style.display = 'none';
+            document.getElementById('restorePhoto').style.display = 'inline-block';
+            document.getElementById('image-preview').style.display = 'none';
+            document.getElementById('image-placeholder').style.display = 'none';
+            document.getElementById('delete-image').value = "true";
+        }
+
+        function restorePhoto() {
+            // Show the deletePhoto link and the image previews
+            document.getElementById('deletePhoto').style.display = 'inline-block';
+            document.getElementById('restorePhoto').style.display = 'none';
+            document.getElementById('image-preview').style.display = 'inline-block';
+            document.getElementById('image-placeholder').style.display = 'inline-block';
+            document.getElementById('delete-image').value = "false";
+        }
+    </script>
+</div>
+</html>

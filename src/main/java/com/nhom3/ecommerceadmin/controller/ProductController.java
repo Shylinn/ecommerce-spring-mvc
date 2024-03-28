@@ -1,12 +1,9 @@
 package com.nhom3.ecommerceadmin.controller;
 
-import com.nhom3.ecommerceadmin.dto.ClubDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
-import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
-import com.nhom3.ecommerceadmin.security.SecurityUtil;
 import com.nhom3.ecommerceadmin.service.ProductService;
 import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class ProductController {
@@ -46,11 +44,18 @@ public class ProductController {
         return "product-details";
     }
 
+    @GetMapping("/products/{productId}/edit")
+    public String createProductForm(@PathVariable("productId") Long productId, Model model) {
+        ProductDto product = productService.findProductById(productId);
+        model.addAttribute("product", product);
+        return "product-edit";
+    }
+
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
-        model.addAttribute("productActive",true);
+//        model.addAttribute("productActive",true);
         return "product-create";
     }
 
@@ -64,7 +69,7 @@ public class ProductController {
 
     @GetMapping("/products/upload")
     public String showUploadForm() {
-        return "products-upload"; // Trả về trang HTML có form upload
+        return "product-upload"; // Trả về trang HTML có form upload
     }
 
     @PostMapping("/products/delete")
@@ -101,6 +106,29 @@ public class ProductController {
 //            model.addAttribute("product", productDto);
             return "product-create";
         }
+        setPhotoUrl(productDto, photo);
+        productService.saveProduct(productDto);
+        return "redirect:/products?productCreateSuccess";
+    }
+
+    @PostMapping("/products/update")
+    public String updateProduct(@Valid @ModelAttribute("product") ProductDto productDto
+            , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo
+            , @RequestParam("delete-image") String isDeleteImage) {
+        if(result.hasErrors()) {
+//            model.addAttribute("product", productDto);
+            return "product-edit";
+        }
+        setPhotoUrl(productDto, photo);
+        if(photo.isEmpty() && Objects.equals(isDeleteImage, "true")){
+            productDto.setPhotoUrl("");
+        }
+
+        productService.saveProduct(productDto);
+        return "redirect:/products/" +productDto.getId() + "/?productUpdateSuccess";
+    }
+
+    private void setPhotoUrl(@ModelAttribute("product") @Valid ProductDto productDto, @RequestParam("photo") MultipartFile photo) {
         if(!photo.isEmpty()){
             try {
                 // Save the uploaded photo to a directory
@@ -117,7 +145,5 @@ public class ProductController {
                 e.printStackTrace();
             }
         }
-        productService.saveProduct(productDto);
-        return "redirect:/products?productCreateSuccess";
     }
 }

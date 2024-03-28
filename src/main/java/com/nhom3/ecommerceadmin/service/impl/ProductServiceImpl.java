@@ -1,5 +1,6 @@
 package com.nhom3.ecommerceadmin.service.impl;
 
+import com.nhom3.ecommerceadmin.Utilities;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -7,7 +8,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.mapper.ProductMapper;
-import com.nhom3.ecommerceadmin.models.Club;
 import com.nhom3.ecommerceadmin.models.Product;
 import com.nhom3.ecommerceadmin.repository.ProductRepository;
 import com.nhom3.ecommerceadmin.service.ProductService;
@@ -23,7 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.nhom3.ecommerceadmin.mapper.ClubMapper.mapToClubDto;
+import static com.nhom3.ecommerceadmin.Utilities.getStringCellValue;
+import static com.nhom3.ecommerceadmin.Utilities.getNumericCellValue;
 import static com.nhom3.ecommerceadmin.mapper.ProductMapper.mapToProduct;
 import static com.nhom3.ecommerceadmin.mapper.ProductMapper.mapToProductDto;
 
@@ -105,16 +106,16 @@ public class ProductServiceImpl implements ProductService {
 
                 try {
                     // Đọc thông tin sản phẩm từ các ô trong dòng
-                    String name = currentRow.getCell(1).getStringCellValue();
-                    String code = currentRow.getCell(2).getStringCellValue();
-                    String photoUrl = currentRow.getCell(3).getStringCellValue();
-                    String unit = currentRow.getCell(4).getStringCellValue();
-                    String quantity = currentRow.getCell(5).getStringCellValue();
-                    Long price = (long) currentRow.getCell(6).getNumericCellValue();
-                    String author = currentRow.getCell(7).getStringCellValue();
-                    String publisher = currentRow.getCell(8).getStringCellValue();
-                    String genre = currentRow.getCell(9).getStringCellValue();
-                    String description = currentRow.getCell(10).getStringCellValue();
+                    String name = getStringCellValue(currentRow.getCell(1));
+                    String code = getStringCellValue(currentRow.getCell(2));
+                    String photoUrl = getStringCellValue(currentRow.getCell(3));
+                    String unit = getStringCellValue(currentRow.getCell(4));
+                    String quantity = getStringCellValue(currentRow.getCell(5));
+                    Long price = getNumericCellValue(currentRow.getCell(6));
+                    String author = getStringCellValue(currentRow.getCell(7));
+                    String publisher = getStringCellValue(currentRow.getCell(8));
+                    String genre = getStringCellValue(currentRow.getCell(9));
+                    String description = getStringCellValue(currentRow.getCell(10));
 
                     // Tạo đối tượng Product và lưu vào cơ sở dữ liệu
                     Product product = new Product();
