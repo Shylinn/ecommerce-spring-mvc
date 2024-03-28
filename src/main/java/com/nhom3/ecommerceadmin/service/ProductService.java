@@ -16,4 +16,7 @@ public interface ProductService {
     void exportProductsToExcel(HttpServletResponse response) throws IOException;
 
     void addProductsFromExcel(MultipartFile file) throws IOException;
+    void deleteProductById(Long id);
+
+    ProductDto findProductById(Long productId);
 }

@@ -1,9 +1,12 @@
 package com.nhom3.ecommerceadmin.controller;
 
+import com.nhom3.ecommerceadmin.dto.ClubDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
+import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
+import com.nhom3.ecommerceadmin.security.SecurityUtil;
 import com.nhom3.ecommerceadmin.service.ProductService;
 import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,6 +39,13 @@ public class ProductController {
         this.imageRepository = imageRepository;
     }
 
+    @GetMapping("/products/{productId}")
+    public String productDetail(@PathVariable("productId") Long productId, Model model) {
+        ProductDto productDto = productService.findProductById(productId);
+        model.addAttribute("product", productDto);
+        return "product-details";
+    }
+
     @GetMapping("/products/new")
     public String createProductForm(Model model) {
         Product product = new Product();
@@ -56,14 +66,8 @@ public class ProductController {
     public String showUploadForm() {
         return "products-upload"; // Trả về trang HTML có form upload
     }
-    @GetMapping("/products")
-    public String productList(Model model) {
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
-        return "products";
-    }
 
-    @PostMapping("/delete")
+    @PostMapping("/products/delete")
     public String deleteProduct(@RequestParam("id") Long id) {
         productService.deleteProductById(id);
         return "redirect:/products?deleteSuccess";
