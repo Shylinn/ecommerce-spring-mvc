@@ -10,6 +10,9 @@
         <div class="container-fluid add-form-list">
             <div class="row">
                 <div class="col-sm-12">
+                    <div th:if="${param.error} == " class="alert alert-success">
+                        Tạo sản phẩm thành công!
+                    </div>
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">

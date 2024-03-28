@@ -6,6 +6,7 @@ import com.nhom3.ecommerceadmin.models.Product;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
 import com.nhom3.ecommerceadmin.service.ProductService;
 import com.nhom3.ecommerceadmin.service.StaffService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -51,6 +52,33 @@ public class ProductController {
         return "product-list";
     }
 
+    @GetMapping("/products/upload")
+    public String showUploadForm() {
+        return "products-upload"; // Trả về trang HTML có form upload
+    }
+
+    @PostMapping("/products/upload")
+    public String uploadProducts(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            // Xử lý trường hợp người dùng không chọn file
+            return "redirect:/products/upload?error=fileEmpty";
+        }
+
+        try {
+            // Gọi phương thức của ProductService để xử lý việc thêm sản phẩm từ file Excel
+            productService.addProductsFromExcel(file);
+            return "redirect:/upload?success";
+        } catch (Exception e) {
+            // Xử lý trường hợp có lỗi xảy ra trong quá trình thêm sản phẩm từ file Excel
+            return "redirect:/upload?error=" + e.getMessage();
+        }
+    }
+
+    @GetMapping("/products/download")
+    public void downloadProducts(HttpServletResponse response) throws IOException {
+        productService.exportProductsToExcel(response);
+    }
+
     @PostMapping("/products/new")
     public String saveProduct(@Valid @ModelAttribute("product") ProductDto productDto
             , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo) {
@@ -75,6 +103,6 @@ public class ProductController {
             }
         }
         productService.saveProduct(productDto);
-        return "redirect:/index?productCreateSuccess";
+        return "redirect:/products?productCreateSuccess";
     }
 }
