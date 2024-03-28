@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">Thêm sản phảm</h4>
+                                <h4 class="card-title">Thêm sản phẩm</h4>
                             </div>
                         </div>
                         <div class="card-body">
@@ -108,7 +108,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Thể loại</label>
-                                            <input type="text" class="form-control" placeholder="Nhập tên tác giả"
+                                            <input type="text" class="form-control" placeholder="Nhập thế loại"
                                                    name="genre" id="genre" th:field="*{genre}">
                                         </div>
                                     </div>
@@ -129,6 +129,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Thêm sản phẩm</button>
+                                <a th:href="@{/products/upload}" class="btn btn-primary mr-2"><i class="las la-plus mr-3"></i>Thêm nhiều sản phẩm</a>
                                 <button type="reset" class="btn btn-danger">Xóa thông tin đã nhập</button>
                             </form>
                         </div>

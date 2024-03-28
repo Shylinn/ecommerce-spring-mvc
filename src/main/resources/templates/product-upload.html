@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Thêm sản phẩm hàng loạt</title>
+</head>
+<div class="content-page" layout:fragment="body">
+        <div class="container-fluid add-form-list">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div th:if="${param.fileEmpty}" class="alert alert-danger">
+                        Bạn chưa chọn file
+                    </div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Thêm sản phẩm hàng loạt</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" role="form" th:action="@{/products/upload}" data-toggle="validator"
+                                  enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Danh sách sản phẩm</label>
+                                            <input type="file" class="form-control image-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                   name="file" id="file">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2">Thêm sản phẩm</button>
+                                <button type="reset" class="btn btn-danger">Xóa file đã chọn</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</html>
