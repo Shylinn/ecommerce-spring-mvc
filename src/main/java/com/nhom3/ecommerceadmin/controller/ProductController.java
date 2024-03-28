@@ -56,21 +56,32 @@ public class ProductController {
     public String showUploadForm() {
         return "products-upload"; // Trả về trang HTML có form upload
     }
+    @GetMapping("/products")
+    public String productList(Model model) {
+        List<Product> products = productService.getAllProducts();
+        model.addAttribute("products", products);
+        return "products";
+    }
 
+    @PostMapping("/delete")
+    public String deleteProduct(@RequestParam("id") Long id) {
+        productService.deleteProductById(id);
+        return "redirect:/products?deleteSuccess";
+    }
     @PostMapping("/products/upload")
     public String uploadProducts(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             // Xử lý trường hợp người dùng không chọn file
-            return "redirect:/products/upload?error=fileEmpty";
+            return "redirect:/products/upload?fileEmpty";
         }
 
         try {
             // Gọi phương thức của ProductService để xử lý việc thêm sản phẩm từ file Excel
             productService.addProductsFromExcel(file);
-            return "redirect:/upload?success";
+            return "redirect:/products?uploadSuccess";
         } catch (Exception e) {
             // Xử lý trường hợp có lỗi xảy ra trong quá trình thêm sản phẩm từ file Excel
-            return "redirect:/upload?error=" + e.getMessage();
+            return "redirect:/products/upload?error=" + e.getMessage();
         }
     }
 

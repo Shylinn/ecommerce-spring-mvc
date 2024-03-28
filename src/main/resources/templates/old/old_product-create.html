@@ -17,8 +17,8 @@
                                 <div class="p-3">
                                     <h2 class="mb-2">Tạo sản phẩm mới</h2>
                                     <div th:if="${param.fail}" class="alert alert-success">
-                                        Đã có tài khoản trung tên đăng nhập hoặc email</div>
-                                    <form method="post" role="form" th:action="@{/product/new}" th:object="${product}">
+                                        Đã có tài khoản trùng tên đăng nhập hoặc email</div>
+                                    <form method="post" role="form" th:action="@{/products/new}" th:object="${product}">
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="floating-label form-group">

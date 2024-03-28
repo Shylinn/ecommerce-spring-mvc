@@ -13,12 +13,16 @@
                     <div th:if="${param.productCreateSuccess}" class="alert alert-success">
                         Tạo sản phẩm thành công!
                     </div>
+                    <div th:if="${param.uploadSuccess}" class="alert alert-success">
+                        Tạo sản phẩm hàng loạt thành công!
+                    </div>
                     <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
                         <div>
                             <h4 class="mb-3">Danh sách sản phẩm</h4>
                         </div>
                         <div>
-                            <a th:href="@{/product/new}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Thêm sản phẩm</a>
+                            <a th:href="@{/products/new}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Thêm 1 sản phẩm</a>
+                            <a th:href="@{/products/upload}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Thêm nhiều sản phẩm</a>
                             <a th:href="@{/products/download}" class="btn btn-primary add-list"><i class="las la-download mr-3"></i>Xuất danh sách ra excel</a>
                         </div>
                     </div>

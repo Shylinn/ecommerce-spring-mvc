@@ -14,9 +14,12 @@ import com.nhom3.ecommerceadmin.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,5 +88,60 @@ public class ProductServiceImpl implements ProductService {
         // Write Excel workbook to the response output stream
         workbook.write(response.getOutputStream());
         workbook.close();
+    }
+
+    public void addProductsFromExcel(MultipartFile file) throws IOException {
+        try (InputStream inputStream = file.getInputStream()) {
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet sheet = workbook.getSheetAt(0); // Giả sử file Excel có một sheet đầu tiên
+
+            Iterator<Row> iterator = sheet.iterator();
+            while (iterator.hasNext()) {
+                Row currentRow = iterator.next();
+                // Bỏ qua dòng header
+                if (currentRow.getRowNum() == 0) {
+                    continue;
+                }
+
+                try {
+                    // Đọc thông tin sản phẩm từ các ô trong dòng
+                    String name = currentRow.getCell(1).getStringCellValue();
+                    String code = currentRow.getCell(2).getStringCellValue();
+                    String photoUrl = currentRow.getCell(3).getStringCellValue();
+                    String unit = currentRow.getCell(4).getStringCellValue();
+                    String quantity = currentRow.getCell(5).getStringCellValue();
+                    Long price = (long) currentRow.getCell(6).getNumericCellValue();
+                    String author = currentRow.getCell(7).getStringCellValue();
+                    String publisher = currentRow.getCell(8).getStringCellValue();
+                    String genre = currentRow.getCell(9).getStringCellValue();
+                    String description = currentRow.getCell(10).getStringCellValue();
+
+                    // Tạo đối tượng Product và lưu vào cơ sở dữ liệu
+                    Product product = new Product();
+                    product.setName(name);
+                    product.setCode(code);
+                    product.setPhotoUrl(photoUrl);
+                    product.setUnit(unit);
+                    product.setQuantity(quantity);
+                    product.setPrice(price);
+                    product.setAuthor(author);
+                    product.setPublisher(publisher);
+                    product.setGenre(genre);
+                    product.setDescription(description);
+
+                    productRepository.save(product);
+                } catch (Exception e) {
+                    // Xử lý trường hợp có lỗi xảy ra trong quá trình đọc dữ liệu từ file Excel
+                    throw new RuntimeException("Lỗi xảy ra khi đọc dữ liệu từ file Excel. Dòng: " + (currentRow.getRowNum() + 1), e);
+                }
+            }
+            workbook.close();
+        } catch (IOException e) {
+            throw new IOException("Lỗi xảy ra khi đọc file Excel", e);
+        }
+    }
+
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
     }
 }
