@@ -1,18 +1,18 @@
 HELP.md
 
-target/generated-sources
-target/generated-test-sources
-target/test-classes
-target/classes/com
-target/classes/static/css
-target/classes/static/images
-target/classes/static/js
-target/classes/static/vendor
-target/classes/templates
-target/classes/application.properties
+#target/generated-sources
+#target/generated-test-sources
+#target/test-classes
+#target/classes/com
+#target/classes/static/css
+#target/classes/static/images
+#target/classes/static/js
+#target/classes/static/vendor
+#target/classes/templates
+#target/classes/application.properties
 
 **/static.rar
-
+target/
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
