@@ -125,7 +125,7 @@ public class ProductController {
         }
 
         productService.saveProduct(productDto);
-        return "redirect:/products/" +productDto.getId() + "/?productUpdateSuccess";
+        return "redirect:/products/" +productDto.getId() + "?productUpdateSuccess";
     }
 
     private void setPhotoUrl(@ModelAttribute("product") @Valid ProductDto productDto, @RequestParam("photo") MultipartFile photo) {

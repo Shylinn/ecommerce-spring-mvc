@@ -31,7 +31,7 @@
                                                     <div class="image-preview-container">
                                                         <img th:src="@{'/uploadImg/' + ${product.photoUrl}}" th:if="${!#strings.isEmpty(product.photoUrl)}" alt="Product Photo" th:id="image-preview" width="200" />
                                                         <img src="https://picsum.photos/500/500" th:if="${#strings.isEmpty(product.photoUrl)}" alt="Product Photo" th:id="image-preview" width="200" />
-                                                        <input type="hidden" id="delete-image" value="false">
+                                                        <input type="text" hidden="hidden" name="delete-image" id="delete-image" value="false">
                                                         <a id="deletePhoto" class="btn btn-primary bg-warning"><i class="ri-delete-bin-line mr-0" onclick="deletePhoto()">Xóa ảnh sản phẩm</i></a>
                                                         <a style="display: none" id="restorePhoto" class="btn btn-primary bg-success"><i class="ri-rotate-lock-fill mr-0" onclick="restorePhoto()">Khôi phục ảnh</i></a>
                                                     </div>
