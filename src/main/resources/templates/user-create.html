@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Thêm nhân viên</title>
+</head>
+<div class="content-page" layout:fragment="body">
+    <div class="container-fluid add-form-list">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Thêm nhân viên</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" role="form" data-toggle="validator"
+                              enctype="multipart/form-data">
+                            <div class="row">
+                                <!--                                    <div class="col-md-12">-->
+                                <!--                                        <div class="form-group">-->
+                                <!--                                            <label>Product Type *</label>-->
+                                <!--                                            <select name="type" class="selectpicker form-control" data-style="py-0">-->
+                                <!--                                                <option>Standard</option>-->
+                                <!--                                                <option>Combo</option>-->
+                                <!--                                                <option>Digital</option>-->
+                                <!--                                                <option>Service</option>-->
+                                <!--                                            </select>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="col-md-6">-->
+                                <!--                                        <div class="form-group">-->
+                                <!--                                            <label>Tên nhân viên *</label>-->
+                                <!--                                            <input type="text" class="form-control" placeholder="Nhập tên nhân viên" data-errors="Hãy nhập tên nhân viên" required-->
+                                <!--                                                   name="name" id="name" th:field="*{name}">-->
+                                <!--                                            <div class="help-block with-errors"></div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tên nhân viên *</label>
+                                        <input type="text" class="form-control" placeholder="Nhập tên nhân viên"
+                                               name="name" id="name" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Mã nhân viên *</label>
+                                        <input type="text" class="form-control" placeholder="Nhập mã nhân viên" data-errors="Hãy nhập mã nhân viên."
+                                               name="code" id="code" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+                                <!--                                    <div class="col-md-12">-->
+                                <!--                                        <div class="form-group">-->
+                                <!--                                            <label>Link hình ảnh *</label>-->
+                                <!--                                            <input type="text" class="form-control" placeholder="Nhập link hình ảnh" data-errors="Hãy nhập link hình ảnh."-->
+                                <!--                                                   name="photoUrl" id="photoUrl" th:field="*{photoUrl}">-->
+                                <!--                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('photoUrl')}" th:errors="*{photoUrl}"></p></div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ngày làm việc *</label>
+                                        <input type="date" class="form-control" placeholder="Ngày làm việc" data-errors="Hãy nhập ngày làm việc."
+                                               name="code" id="code" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số điện thoại *</label>
+                                        <input type="number" class="form-control" placeholder="Số điện thoại" data-errors="Hãy nhập số điên thoại."
+                                               name="quantity" id="quantity" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>CCCD *</label>
+                                        <input type="number" class="form-control" placeholder="CCCD" data-errors="Hãy nhập CCCD."
+                                               name="price" id="price" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" class="form-control" placeholder="Địa chỉ" data-errors="Hãy nhập địa chỉ."
+                                               name="author" id="author" >
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Doanh số *</label>
+                                        <input type="number" class="form-control" placeholder="Doanh số" data-errors="Hãy nhập doanh số."
+                                               name="price" id="price" >
+                                        <div class="help-block with-errors"><p class="text-danger" ></p></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Thêm nhân viên</button>
+                            <button type="reset" class="btn btn-danger">Xóa thông tin đã nhập</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div></div>
+</div>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
