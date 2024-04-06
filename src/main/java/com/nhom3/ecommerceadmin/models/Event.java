@@ -1,4 +1,4 @@
-package com.rungroop.web.models;
+package com.nhom3.ecommerceadmin.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

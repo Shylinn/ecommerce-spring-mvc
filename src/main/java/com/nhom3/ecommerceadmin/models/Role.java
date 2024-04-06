@@ -1,4 +1,4 @@
-package com.rungroop.web.models;
+package com.nhom3.ecommerceadmin.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +19,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @ManyToMany(mappedBy = "roles")
-    private List<UserEntity> users = new ArrayList<>();
+    private List<Staff> staffs = new ArrayList<>();
 }

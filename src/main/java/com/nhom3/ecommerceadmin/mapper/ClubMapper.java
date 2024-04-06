@@ -1,11 +1,11 @@
-package com.rungroop.web.mapper;
+package com.nhom3.ecommerceadmin.mapper;
 
-import com.rungroop.web.dto.ClubDto;
-import com.rungroop.web.models.Club;
+import com.nhom3.ecommerceadmin.dto.ClubDto;
+import com.nhom3.ecommerceadmin.models.Club;
 
 import java.util.stream.Collectors;
 
-import static com.rungroop.web.mapper.EventMapper.mapToEventDto;
+import static com.nhom3.ecommerceadmin.mapper.EventMapper.mapToEventDto;
 
 public class ClubMapper {
     public static Club mapToClub(ClubDto club) {

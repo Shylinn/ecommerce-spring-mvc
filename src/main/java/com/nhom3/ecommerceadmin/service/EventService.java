@@ -1,6 +1,6 @@
-package com.rungroop.web.service;
+package com.nhom3.ecommerceadmin.service;
 
-import com.rungroop.web.dto.EventDto;
+import com.nhom3.ecommerceadmin.dto.EventDto;
 
 import java.util.List;
 

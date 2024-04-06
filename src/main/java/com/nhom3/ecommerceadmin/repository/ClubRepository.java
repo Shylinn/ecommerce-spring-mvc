@@ -1,6 +1,6 @@
-package com.rungroop.web.repository;
+package com.nhom3.ecommerceadmin.repository;
 
-import com.rungroop.web.models.Club;
+import com.nhom3.ecommerceadmin.models.Club;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

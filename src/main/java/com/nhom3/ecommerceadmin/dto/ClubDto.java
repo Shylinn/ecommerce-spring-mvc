@@ -1,6 +1,6 @@
-package com.rungroop.web.dto;
+package com.nhom3.ecommerceadmin.dto;
 
-import com.rungroop.web.models.UserEntity;
+import com.nhom3.ecommerceadmin.models.Staff;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,7 +23,7 @@ public class ClubDto {
     private String photoUrl;
     @NotEmpty(message = "Content should not be empty")
     private String content;
-    private UserEntity createdBy;
+    private Staff createdBy;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private List<EventDto> events;

@@ -1,30 +1,28 @@
-package com.rungroop.web.service.impl;
+package com.nhom3.ecommerceadmin.service.impl;
 
-import com.rungroop.web.dto.ClubDto;
-import com.rungroop.web.models.Club;
-import com.rungroop.web.models.UserEntity;
-import com.rungroop.web.repository.ClubRepository;
-import com.rungroop.web.repository.UserRepository;
-import com.rungroop.web.security.SecurityUtil;
-import com.rungroop.web.service.ClubService;
+import com.nhom3.ecommerceadmin.dto.ClubDto;
+import com.nhom3.ecommerceadmin.models.Club;
+import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.repository.ClubRepository;
+import com.nhom3.ecommerceadmin.security.SecurityUtil;
+import com.nhom3.ecommerceadmin.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rungroop.web.mapper.ClubMapper.mapToClub;
-import static com.rungroop.web.mapper.ClubMapper.mapToClubDto;
+import static com.nhom3.ecommerceadmin.mapper.ClubMapper.mapToClub;
+import static com.nhom3.ecommerceadmin.mapper.ClubMapper.mapToClubDto;
 
 @Service
 public class ClubServiceImpl implements ClubService {
     private ClubRepository clubRepository;
-    private UserRepository userRepository;
+    private com.nhom3.ecommerceadmin.repository.StaffRepository staffRepository;
 
     @Autowired
-    public ClubServiceImpl(ClubRepository clubRepository, UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ClubServiceImpl(ClubRepository clubRepository, com.nhom3.ecommerceadmin.repository.StaffRepository staffRepository) {
+        this.staffRepository = staffRepository;
         this.clubRepository = clubRepository;
     }
 
@@ -37,7 +35,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public Club saveClub(ClubDto clubDto) {
         String username = SecurityUtil.getSessionUser();
-        UserEntity user = userRepository.findByUsername(username);
+        Staff user = staffRepository.findByUsername(username);
         Club club = mapToClub(clubDto);
         club.setCreatedBy(user);
         return clubRepository.save(club);
@@ -52,7 +50,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public void updateClub(ClubDto clubDto) {
         String username = SecurityUtil.getSessionUser();
-        UserEntity user = userRepository.findByUsername(username);
+        Staff user = staffRepository.findByUsername(username);
         Club club = mapToClub(clubDto);
         club.setCreatedBy(user);
         clubRepository.save(club);

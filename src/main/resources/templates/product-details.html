@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Chi tiết sản phẩm</title>
+</head>
+<div class="content-page" layout:fragment="body">
+        <div class="container-fluid add-form-list">
+            <div th:if="${param.productUpdateSuccess}" class="alert alert-success">Cập nhật sản phẩm thành công!</div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Chi tiết sản phẩm</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Tên sản phẩm</strong>
+                                                <p th:text="${product.name}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Mã sản phẩm</strong>
+                                                <p th:text="${product.code}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Đơn vị tính</strong>
+                                                <p th:text="${product.unit}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Số lượng</strong>
+                                                <p th:text="${product.quantity}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Giá</strong>
+                                                <p th:text="'VNĐ '+${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Tác giả</strong>
+                                                <p th:text="${product.author}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Nhà xuất bản</strong>
+                                                <p th:text="${product.publisher}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Thể loại</strong>
+                                                <p th:text="${product.genre}"/>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <strong>Mô tả / chi tiết sản phẩm</strong>
+                                                <p th:text="${product.description}"/>
+                                            </div>
+                                        </div>
+                                        <form th:action="@{/products/delete}" method="POST">
+<!--                                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}" class="btn btn-primary bg-success"-->
+<!--                                            ><i class="ri-pencil-line mr-0">Sửa thông tin sản phẩm</i></a>-->
+
+                                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}" class="btn btn-primary mr-2">Sửa thông tin sản phẩm</a>
+                                            <input type="hidden" th:name="id" th:value="${product.id}" />
+
+                                            <button type="submit" class="btn btn-primary bg-warning">Xóa sản phẩm</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row"><div class="col-md-12">
+                                            <img th:src="@{'/uploadImg/' + ${product.photoUrl}}" th:if="${!#strings.isEmpty(product.photoUrl)}" class="img-fluid rounded mr-3" alt="image">
+                                            <img src="https://picsum.photos/500/500" th:if="${#strings.isEmpty(product.photoUrl)}" class="img-fluid rounded mr-3" alt="image">
+                                        </div></div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</html>
