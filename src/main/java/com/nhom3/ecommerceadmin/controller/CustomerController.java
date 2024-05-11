@@ -2,6 +2,12 @@ package com.nhom3.ecommerceadmin.controller;
 
 import com.nhom3.ecommerceadmin.models.Customer;
 import com.nhom3.ecommerceadmin.repository.CustomerRepository;
+import com.nhom3.ecommerceadmin.service.ExcelExportService;
+import com.nhom3.ecommerceadmin.service.ExcelImportService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +20,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class CustomerController {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ExcelExportService excelExportService;
+    private ExcelImportService excelImportService;
 
     @RequestMapping("/customers")
     public String ListCustomerPage(ModelMap modelmap) {
@@ -66,10 +78,37 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @GetMapping("/customer/search")
-    public String searchCustomer(@RequestParam("fullName") String fullName, ModelMap modelmap) {
-        Iterable<Customer> customers = customerRepository.findByFullNameContaining(fullName);
-        modelmap.addAttribute("customers", customers);
-        return "customer-list";
+    @GetMapping("/customer/update/{id}")
+    public String updateCustomer(@PathVariable(value = "id") long id, ModelMap modelmap) {
+        Optional<Customer> customer = this.customerRepository.findById(id);
+
+        modelmap.addAttribute("customer", customer.get());
+        return "customer-update";
     }
+
+    @PostMapping("/customer/save/{id}")
+    public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+        customerRepository.save(customer);
+        return "redirect:/customers";
+    }
+
+    @GetMapping("/customers/export")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        Iterable<Customer> customers = (Iterable<Customer>) customerRepository.findAll();
+        excelExportService.exportToExcel(response, customers);
+    }
+
+    @PostMapping("/customer/upload")
+    public String uploadCustomer(@RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            excelImportService.importCustomersFromExcel(file);
+            return "redirect:/customers";   
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Failed to import from Excel: " + e.getMessage();
+        }
+
+    }
+
 }

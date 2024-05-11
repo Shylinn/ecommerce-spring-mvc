@@ -370,13 +370,12 @@ Index Of Script
     });
   }
 
-    /*---------------------------------------------------------------------
-        Datatables
-    -----------------------------------------------------------------------*/
-    if(jQuery('.data-tables').length)
-    {
-      $('.data-tables').DataTable();
-    }
+  /*---------------------------------------------------------------------
+      Datatables
+  -----------------------------------------------------------------------*/
+  if (jQuery('.data-tables').length) {
+    $('.data-tables').DataTable();
+  }
 
   /*---------------------------------------------------------------------
         Form Validation
@@ -610,3 +609,34 @@ Index Of Script
     });
   }
 })(jQuery);
+
+function search() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-btn");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("Table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    var isFound = false;
+    for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+      td = tr[i].getElementsByTagName("td")[j];
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        isFound = true;
+        break;
+      }
+
+    }
+    if (isFound) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+
+  }
+
+
+}
+
+
+
