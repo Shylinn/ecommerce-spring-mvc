@@ -7,6 +7,7 @@ import com.nhom3.ecommerceadmin.service.ExcelImportService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class CustomerController {
     private CustomerRepository customerRepository;
     @Autowired
     private ExcelExportService excelExportService;
-    private ExcelImportService excelImportService;
+    @Autowired
+    private ExcelImportService importExcel;
 
     @RequestMapping("/customers")
     public String ListCustomerPage(ModelMap modelmap) {
@@ -98,17 +100,18 @@ public class CustomerController {
         excelExportService.exportToExcel(response, customers);
     }
 
-    @PostMapping("/customer/upload")
-    public String uploadCustomer(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/customers/upload")
+    public String importExcel(@RequestParam("file") MultipartFile file) {
+        List<Customer> customerList;
         try {
-            excelImportService.importCustomersFromExcel(file);
-            return "redirect:/customers";   
-
-        } catch (Exception e) {
+            customerList = importExcel.excelToCustomerList(file);
+            System.out.println(customerList.toString());
+            customerRepository.saveAll(customerList);
+        } catch (IOException e) {
             e.printStackTrace();
-            return "Failed to import from Excel: " + e.getMessage();
         }
 
+        return "redirect:/customers";
     }
 
 }

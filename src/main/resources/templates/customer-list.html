@@ -22,7 +22,7 @@
                     <a th:href="@{/customer/add}" class="btn btn-primary add-list mt-3 ml-1"><i
                             class="las la-plus mr-3"></i>Add
                         Customer</a>
-                    <form th:action="@{customer/upload}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{customers/upload}" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" accept=".xlsx">
                         <button type="submit">Upload</button>
                     </form>
