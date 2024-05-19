@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class Customer {
     private String address;
     private String phoneNum;
     private String email;
+    // @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDate dayOfBirth;
 
     @CreationTimestamp
@@ -33,6 +35,11 @@ public class Customer {
 
     @Transient // Exclude from persistence
     private Double sales;
+
+    public LocalDate getdayOfBirth() {
+        return this.dayOfBirth;
+    }
+
     public Double getSales() {
         return this.bills.stream().mapToDouble(Bill::getValue).sum();
     }
