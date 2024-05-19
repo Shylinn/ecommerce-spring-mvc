@@ -74,6 +74,8 @@ public class ClubController {
         return "clubs-list";
     }
 
+
+
     @PostMapping("/clubs/new")
     public String saveClub(@Valid @ModelAttribute("club") ClubDto clubDto, BindingResult result, Model model) {
         if(result.hasErrors()) {

@@ -72,10 +72,11 @@ public class AuthController {
             return "redirect:/register?fail";
         }
         if(result.hasErrors()) {
-            model.addAttribute("staff", staff);
-            if(!Objects.equals(staff.getPasswordConfirm(), staff.getPassword())) {
-                model.addAttribute("wrongPwConfirm", "wrongPwConfirm");
-            }
+//            model.addAttribute("staff", staff);
+            return "register";
+        }
+        if(!Objects.equals(staff.getPasswordConfirm(), staff.getPassword())) {
+            model.addAttribute("wrongPwConfirm", "wrongPwConfirm");
             return "register";
         }
 
