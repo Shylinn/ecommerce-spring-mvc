@@ -1,11 +1,11 @@
 package com.nhom3.ecommerceadmin.controller;
 
-import com.rungroop.web.dto.ClubDto;
-import com.rungroop.web.models.Club;
-import com.rungroop.web.models.UserEntity;
-import com.rungroop.web.security.SecurityUtil;
-import com.rungroop.web.service.ClubService;
-import com.rungroop.web.service.UserService;
+import com.nhom3.ecommerceadmin.dto.ClubDto;
+import com.nhom3.ecommerceadmin.models.Club;
+import com.nhom3.ecommerceadmin.models.Staff;
+import com.nhom3.ecommerceadmin.security.SecurityUtil;
+import com.nhom3.ecommerceadmin.service.ClubService;
+import com.nhom3.ecommerceadmin.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,21 +18,21 @@ import java.util.List;
 @Controller
 public class ClubController {
     private ClubService clubService;
-    private UserService userService;
+    private StaffService staffService;
 
     @Autowired
-    public ClubController(ClubService clubService, UserService userService) {
-        this.userService = userService;
+    public ClubController(ClubService clubService, StaffService staffService) {
+        this.staffService = staffService;
         this.clubService = clubService;
     }
 
     @GetMapping("/clubs")
     public String listClubs(Model model) {
-        UserEntity user = new UserEntity();
+        Staff user = new Staff();
         List<ClubDto> clubs = clubService.findAllClubs();
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = userService.findByUsername(username);
+            user = staffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
@@ -42,11 +42,11 @@ public class ClubController {
 
     @GetMapping("/clubs/{clubId}")
     public String clubDetail(@PathVariable("clubId") long clubId, Model model) {
-        UserEntity user = new UserEntity();
+        Staff user = new Staff();
         ClubDto clubDto = clubService.findClubById(clubId);
         String username = SecurityUtil.getSessionUser();
         if(username != null) {
-            user = userService.findByUsername(username);
+            user = staffService.findByUsername(username);
             model.addAttribute("user", user);
         }
         model.addAttribute("user", user);
@@ -73,6 +73,8 @@ public class ClubController {
         model.addAttribute("clubs", clubs);
         return "clubs-list";
     }
+
+
 
     @PostMapping("/clubs/new")
     public String saveClub(@Valid @ModelAttribute("club") ClubDto clubDto, BindingResult result, Model model) {

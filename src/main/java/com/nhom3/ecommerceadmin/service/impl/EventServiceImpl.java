@@ -1,20 +1,20 @@
-package com.rungroop.web.service.impl;
+package com.nhom3.ecommerceadmin.service.impl;
 
-import com.rungroop.web.dto.EventDto;
-import com.rungroop.web.models.Club;
-import com.rungroop.web.models.Event;
-import com.rungroop.web.repository.ClubRepository;
-import com.rungroop.web.repository.EventRepository;
-import com.rungroop.web.service.EventService;
+import com.nhom3.ecommerceadmin.dto.EventDto;
+import com.nhom3.ecommerceadmin.models.Club;
+import com.nhom3.ecommerceadmin.models.Event;
+import com.nhom3.ecommerceadmin.repository.ClubRepository;
+import com.nhom3.ecommerceadmin.repository.EventRepository;
+import com.nhom3.ecommerceadmin.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.rungroop.web.mapper.ClubMapper.mapToClub;
-import static com.rungroop.web.mapper.EventMapper.mapToEvent;
-import static com.rungroop.web.mapper.EventMapper.mapToEventDto;
+import static com.nhom3.ecommerceadmin.mapper.ClubMapper.mapToClub;
+import static com.nhom3.ecommerceadmin.mapper.EventMapper.mapToEvent;
+import static com.nhom3.ecommerceadmin.mapper.EventMapper.mapToEventDto;
 
 @Service
 public class EventServiceImpl implements EventService {
