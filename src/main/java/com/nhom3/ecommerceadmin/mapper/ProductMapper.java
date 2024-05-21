@@ -1,13 +1,7 @@
 package com.nhom3.ecommerceadmin.mapper;
 
-import com.nhom3.ecommerceadmin.dto.ClubDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
-import com.nhom3.ecommerceadmin.models.Club;
 import com.nhom3.ecommerceadmin.models.Product;
-
-import java.util.stream.Collectors;
-
-import static com.nhom3.ecommerceadmin.mapper.EventMapper.mapToEventDto;
 
 public class ProductMapper {
 
