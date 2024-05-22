@@ -32,50 +32,36 @@
                                         <label for="checkbox1" class="mb-0"></label>
                                     </div>
                                 </th>
-                                <th>Tên sản phẩm</th>
-                                <th>Mã sản phẩm</th>
-                                <th>Thể loại</th>
-                                <th>Tác giả</th>
-                                <th>Giá</th>
-                                <th>Đơn vị tính</th>
-                                <th>Số lượng</th>
+                                <th>Số hóa đơn</th>
+                                <th>Người tạo</th>
+                                <th>Tên khách hàng</th>
+                                <th>Giá trị HĐ</th>
+                                <th>Ngày tạo</th>
+                                <th>Cập nhật cuối</th>
                                 <th>Thao tác</th>
                             </tr>
                             </thead>
                             <tbody class="ligth-body">
-                            <tr th:each="product :${products}">
+                            <tr th:each="bill :${bills}">
                                 <td>
                                     <div class="checkbox d-inline-block">
-                                        <input type="checkbox" class="checkbox-input" th:id="${product.id}">
-                                        <label th:for="${product.id}" class="mb-0"></label>
+                                        <input type="checkbox" class="checkbox-input" th:id="${bill.getId()}">
+                                        <label th:for="${bill.getId()}" class="mb-0"></label>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img th:src="@{'/uploadImg/' + ${product.photoUrl}}" th:if="${!#strings.isEmpty(product.photoUrl)}" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                        <img src="https://picsum.photos/500/500" th:if="${#strings.isEmpty(product.photoUrl)}" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                        <div>
-                                            <div th:text="${product.name}"></div>
-                                            <p class="mb-0"><small th:text="'NXB: '+${product.publisher}"></small></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td th:text="${product.code}"></td>
-                                <td th:text="${product.genre}"></td>
-                                <td th:text="${product.author}"></td>
-<!--                                <td th:text="'VNĐ '+${product.price}"></td>-->
-                                <td>VNĐ <span th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA')}"></span></td>
-<!--                                <td th:text="'VNĐ ' + ${#strings.formatDecimal(product.price == null ? null : T(java.math.BigDecimal).valueOf(product.price), 0, 'COMMA', 2, 'POINT')}"></td>-->
-                                <td th:text="${product.unit}"></td>
-                                <td th:text="${product.quantity}"></td>
+                                <td th:text="${bill.getStaff().getFullName()}"></td>
+                                <td th:text="${bill.getCustomer().getFullName()}"></td>
+                                <td th:text="${bill.getValue()}"></td>
+                                <td th:text="${#dates.format(bill.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td th:text="${#dates.format(bill.getUpdatedOn(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td>
                                     <div class="d-flex align-items-center list-action">
-                                        <form th:action="@{/products/delete}" method="POST">
+                                        <form th:action="@{/bills/delete}" method="POST">
                                             <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xem"
-                                               th:href="@{/products/{productId}(productId=${product.id})}"><i class="ri-eye-line mr-0"></i></a>
+                                               th:href="@{/bills/{billId}(billId=${bill.getId()})}"><i class="ri-eye-line mr-0"></i></a>
                                             <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sửa"
-                                               th:href="@{/products/{productId}/edit(productId=${product.id})}"><i class="ri-pencil-line mr-0"></i></a>
-                                            <input type="hidden" th:name="id" th:value="${product.id}" />
+                                               th:href="@{/bills/{billId}/edit(billId=${bill.getId()})}"><i class="ri-pencil-line mr-0"></i></a>
+                                            <input type="hidden" th:name="id" th:value="${bill.getId()}" />
                                             <button type="submit" class="badge bg-warning mr-2 border-0" data-toggle="tooltip" data-placement="top" title="" data-original-title="Xóa">
                                                <i class="ri-delete-bin-line mr-0"></i>
                                             </button>
@@ -90,39 +76,6 @@
             </div>
             <!-- Page end  -->
         </div>
-        <!-- Modal Edit -->
-        <div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="popup text-left">
-                            <div class="media align-items-top justify-content-between">
-                                <h3 class="mb-3">Product</h3>
-                                <div class="btn-cancel p-0" data-dismiss="modal"><i class="las la-times"></i></div>
-                            </div>
-                            <div class="content edit-notes">
-                                <div class="card card-transparent card-block card-stretch event-note mb-0">
-                                    <div class="card-body px-0 bukmark">
-                                        <div class="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">
-                                            <div class="quill-tool">
-                                            </div>
-                                        </div>
-                                        <div id="quill-toolbar1">
-                                            <p>Virtual Digital Marketing Course every week on Monday, Wednesday and Saturday.Virtual Digital Marketing Course every week on Monday</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer border-0">
-                                        <div class="d-flex flex-wrap align-items-ceter justify-content-end">
-                                            <div class="btn btn-primary mr-3" data-dismiss="modal">Cancel</div>
-                                            <div class="btn btn-outline-primary" data-dismiss="modal">Save</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 </div>
 </html>

@@ -1,10 +1,7 @@
 package com.nhom3.ecommerceadmin.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "bills")
@@ -24,6 +22,7 @@ public class Bill {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    // staff that created the bill
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
@@ -37,6 +36,6 @@ public class Bill {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "bill")
+    @OneToMany(mappedBy = "bill", cascade = CascadeType.REMOVE)
     private Set<BillDetails> details;
 }

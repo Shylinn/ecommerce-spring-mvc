@@ -6,6 +6,7 @@ import com.nhom3.ecommerceadmin.models.Staff;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -27,7 +28,11 @@ public class BillDto {
 
     private Customer customer;
 
+    @Transient // Exclude from persistence
     private Double value;
+    public double getValue(){
+        return this.details.stream().mapToDouble(detail -> detail.getProduct().getPrice()*detail.getQuantity()).sum();
+    }
 
     private LocalDateTime updatedOn;
 

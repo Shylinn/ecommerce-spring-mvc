@@ -2,6 +2,7 @@ package com.nhom3.ecommerceadmin.controller;
 
 import com.nhom3.ecommerceadmin.dto.BillDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
+import com.nhom3.ecommerceadmin.models.Bill;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.models.Product;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;

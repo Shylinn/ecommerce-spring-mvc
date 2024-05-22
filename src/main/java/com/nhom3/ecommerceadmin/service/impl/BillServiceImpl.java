@@ -1,8 +1,12 @@
 package com.nhom3.ecommerceadmin.service.impl;
 
+import com.nhom3.ecommerceadmin.dto.BillDto;
 import com.nhom3.ecommerceadmin.dto.ProductDto;
+import com.nhom3.ecommerceadmin.mapper.BillMapper;
 import com.nhom3.ecommerceadmin.mapper.ProductMapper;
+import com.nhom3.ecommerceadmin.models.Bill;
 import com.nhom3.ecommerceadmin.models.Product;
+import com.nhom3.ecommerceadmin.repository.BillRepository;
 import com.nhom3.ecommerceadmin.repository.ProductRepository;
 import com.nhom3.ecommerceadmin.service.BillService;
 import com.nhom3.ecommerceadmin.service.ProductService;
@@ -30,11 +34,12 @@ import static com.nhom3.ecommerceadmin.mapper.ProductMapper.mapToProductDto;
 
 @Service
 public class BillServiceImpl implements BillService {
-//    private ProductRepository productRepository;
-//    @Autowired
-//    public BillServiceImpl(ProductRepository productRepository) {
-//        this.productRepository = productRepository;
-//    }
+
+    private BillRepository billRepository;
+    @Autowired
+    public BillServiceImpl(BillRepository billRepository) {
+        this.billRepository = billRepository;
+    }
 //
 //    @Override
 //    public void saveProduct(ProductDto productDto) {
@@ -42,11 +47,11 @@ public class BillServiceImpl implements BillService {
 //        productRepository.save(product);
 //    }
 //
-//    @Override
-//    public List<ProductDto> findAllProducts() {
-//        List<Product> products = productRepository.findAll();
-//        return products.stream().map(ProductMapper::mapToProductDto).collect(Collectors.toList());
-//    }
+    @Override
+    public List<BillDto> findAllBills() {
+        List<Bill> bills = billRepository.findAll();
+        return bills.stream().map(BillMapper::mapToBillDto).collect(Collectors.toList());
+    }
 //
 //    public void exportProductsToExcel(HttpServletResponse response) throws IOException {
 //        List<Product> products = productRepository.findAll();
