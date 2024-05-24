@@ -50,4 +50,28 @@ public class ExcelExportService {
         workbook.write(response.getOutputStream());
         workbook.close();
     }
+
+    public void exportTemplate(jakarta.servlet.http.HttpServletResponse response) throws IOException {
+
+        // Tạo một workbook mới
+        Workbook workbook = new XSSFWorkbook();
+
+        // Tạo một sheet mới
+        Sheet sheet = workbook.createSheet("Customers");
+
+        // Tạo header row
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("Full Name");
+        headerRow.createCell(1).setCellValue("Email");
+        headerRow.createCell(2).setCellValue("Phone Number");
+        headerRow.createCell(3).setCellValue("Date Of Birth");
+        headerRow.createCell(4).setCellValue("Address");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=customers.xlsx");
+
+        // Ghi workbook vào ServletOutputStream của response
+        response.getOutputStream().flush();
+        workbook.write(response.getOutputStream());
+        workbook.close();
+    }
 }
