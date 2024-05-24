@@ -4,6 +4,7 @@
 
 <head>
     <title>Danh sách khách hàng</title>
+
 </head>
 
 <div class="content-page" layout:fragment="body">
@@ -19,118 +20,108 @@
                         </p>
                     </div>
 
-                    <a th:href="@{/customer/add}" class="btn btn-primary add-list mt-3 ml-1"><i
-                            class="las la-plus mr-3"></i>Add
-                        Customer</a>
-                    <form th:action="@{customers/upload}" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" accept=".xlsx">
-                        <button type="submit">Upload</button>
-                    </form>
-                    <a th:href="@{/customers/export}" class="btn btn-success add-list mt-3 "><i
-                            class="las la-plus mr-3"></i>Export
-                        Customer</a>
+                </div>
+                <div class="d-flex justify-content-end pr-3 mb-4">
 
+                    <a th:href="@{/customer/add}" class="btn btn-primary add-list mr-2"><i
+                            class="las la-plus mr-3"></i>Thêm
+                        1 khách hàng</a>
+                    <a th:href="@{/customers/upload}" class="btn btn-primary add-list mr-2"><i
+                            class="las la-plus mr-3"></i>Thêm nhiều khách hàng</a>
+                    <a th:href="@{/customers/export}" class="btn btn-primary add-list mr-2"><i
+                            class="las la-download mr-3"></i>Xuất danh sách ra excel</a>
 
                 </div>
 
             </div>
-        </div>
-
-
-        <div class="row mb-4 col-lg-6">
-            <input class="form-control" id="search-btn" type="search" placeholder="Search" aria-label="Search"
-                name="fullName" onkeyup="search()">
-
-
-
-
 
         </div>
-    </div>
 
 
 
 
-    <div class="col-lg-12">
-        <div class="table-responsive rounded mb-3">
-            <table class="data-table table mb-0 tbl-server-info" id="Table">
-                <thead class="bg-white text-uppercase">
-                    <tr class="ligth ligth-data">
-                        <th>
-                            <div class="checkbox d-inline-block">
-                                <input type="checkbox" class="checkbox-input" id="checkbox1">
-                                <label for="checkbox1" class="mb-0"></label>
-                            </div>
-                        </th>
-                        <th>Tên khách hàng <i class="bi bi-arrow-down-up"></i></th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Doanh số</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="ligth-body">
+        <div class="col-lg-12">
 
-                    <tr th:each="customer:${customers}">
-                        <td>
-                            <div class="checkbox d-inline-block">
-                                <input type="checkbox" class="checkbox-input" id="checkbox3">
-                                <label for="checkbox3" class="mb-0"></label>
-                            </div>
-                        </td>
-                        <td th:text="${customer.fullName}"></td>
-                        <td th:text="${customer.email}"></td>
-                        <td th:text="${customer.phoneNum}"></td>
-                        <td th:text="${customer.address}"></td>
-                        <td th:text="${customer.getSales()}"></td>
-                        <td>
-                            <div class="d-flex align-items-center list-action">
-                                <a class="badge bg-success mr-2" data-placement="top"
-                                    th:href="@{/customer/update/{id}(id=${customer.id})}" data-original-title="Edit"><i
-                                        class="ri-pencil-line mr-0"></i></a>
-                                <a type="button" class="badge bg-warning mr-2" data-toggle="modal" data-placement="top"
-                                    title="" data-original-title="Delete"
-                                    th:data-target="'.bd-example-modal-xl'+${customer.id}">
-                                    <i class="ri-delete-bin-line mr-0"></i></a>
+            <div class="table-responsive rounded mb-5">
+                <table class="data-tables table mb-0 tbl-server-info table-bordered rounded" id="Table">
+                    <thead class="thead-light text-center">
+                        <tr>
+                            <th>
+                                <div class="checkbox d-inline-block">
+                                    <input type="checkbox" class="checkbox-input" id="checkbox1">
+                                    <label for="checkbox1" class="mb-0"></label>
+                                </div>
+                            </th>
+                            <th>Tên khách hàng <i class="bi bi-arrow-down-up"></i></th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Doanh số</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ligth-body">
 
-                                <div th:class="'modal fade bd-example-modal-xl'+${customer.id}" role="dialog"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Cảnh báo</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <span
-                                                    th:text="'Bạn có chắc muốn xóa khách hàng ' + ${customer.fullName} +' không?'">
-                                                </span>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <a th:href="@{/customer/delete/{id}(id=${customer.id})}"><button
-                                                        type="button" class="btn btn-primary">Xóa</button></a>
+                        <tr th:each="customer:${customers}">
+                            <td>
+                                <div class="checkbox d-inline-block">
+                                    <input type="checkbox" class="checkbox-input" id="checkbox3">
+                                    <label for="checkbox3" class="mb-0"></label>
+                                </div>
+                            </td>
+                            <td th:text="${customer.fullName}"></td>
+                            <td th:text="${customer.email}"></td>
+                            <td th:text="${customer.phoneNum}"></td>
+                            <td th:text="${customer.address}"></td>
+                            <td th:text="${customer.getSales()}"></td>
+                            <td>
+                                <div class="d-flex align-items-center list-action">
+                                    <a class="badge bg-success mr-2" data-placement="top"
+                                        th:href="@{/customer/update/{id}(id=${customer.id})}"
+                                        data-original-title="Edit"><i class="ri-pencil-line mr-0"></i></a>
+                                    <a type="button" class="badge bg-warning mr-2" data-toggle="modal"
+                                        data-placement="top" title="" data-original-title="Delete"
+                                        th:data-target="'.bd-example-modal-xl'+${customer.id}">
+                                        <i class="ri-delete-bin-line mr-0"></i></a>
 
+                                    <div th:class="'modal fade bd-example-modal-xl'+${customer.id}" role="dialog"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Cảnh báo</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <span
+                                                        th:text="'Bạn có chắc muốn xóa khách hàng ' + ${customer.fullName} +' không?'">
+                                                    </span>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <a th:href="@{/customer/delete/{id}(id=${customer.id})}"><button
+                                                            type="button" class="btn btn-primary">Xóa</button></a>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+                            </td>
+                        </tr>
 
-                            </div>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
-</div>
-<!-- Page end  -->
+    <!-- Page end  -->
 </div>
 <!-- Modal Edit -->
 <div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
