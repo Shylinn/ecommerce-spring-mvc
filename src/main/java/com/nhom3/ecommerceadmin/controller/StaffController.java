@@ -31,24 +31,26 @@ public class StaffController {
 	public String createUserForm(Model model) {
 		Staff staff = new Staff();
 		model.addAttribute("staff", staff);
-//      model.addAttribute("productActive",true);
+		// model.addAttribute("productActive",true);
 		return "user-create";
 	}
 
 	@PostMapping("/staff/new")
 	public String saveUser(@Valid @ModelAttribute("staff") RegistrationDto userDto, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-//          model.addAttribute("product", productDto);
+			// model.addAttribute("product", productDto);
 			return "user-create";
 		}
 		Staff existingUserEmail = staffService.findByEmail(userDto.getEmail());
-        if(existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
-            return "redirect:/staff/add?fail";
-        }
-        Staff existingUserUsername = staffService.findByUsername(userDto.getUsername());
-        if(existingUserUsername != null && existingUserUsername.getUsername() != null && !existingUserUsername.getUsername().isEmpty()) {
-            return "redirect:/staff/add?fail";
-        }
+		if (existingUserEmail != null && existingUserEmail.getEmail() != null
+				&& !existingUserEmail.getEmail().isEmpty()) {
+			return "redirect:/staff/add?fail";
+		}
+		Staff existingUserUsername = staffService.findByUsername(userDto.getUsername());
+		if (existingUserUsername != null && existingUserUsername.getUsername() != null
+				&& !existingUserUsername.getUsername().isEmpty()) {
+			return "redirect:/staff/add?fail";
+		}
 		staffService.saveStaff(userDto);
 		return "redirect:/staffs?userCreateSuccess";
 	}
@@ -65,30 +67,37 @@ public class StaffController {
 		model.addAttribute("staffs", staffs);
 		return "user-list";
 	}
-	
+
 	@GetMapping("/staff/{userId}")
-    public String productDetail(@PathVariable("userId") Long productId, Model model) {
-        RegistrationDto registrationDto = staffService.findStaffById(productId);
-        registrationDto.setSales(registrationDto.getSales());
-        model.addAttribute("staff", registrationDto);
-        return "user-details";
-    }
+	public String productDetail(@PathVariable("userId") Long productId, Model model) {
+		RegistrationDto registrationDto = staffService.findStaffById(productId);
+		registrationDto.setSales(registrationDto.getSales());
+		model.addAttribute("staff", registrationDto);
+		return "user-details";
+	}
 
-    @GetMapping("/staff/{userId}/edit")
-    public String createProductForm(@PathVariable("userId") Long productId, Model model) {
-    	RegistrationDto registrationDto = staffService.findStaffById(productId);
-        model.addAttribute("staff", registrationDto);
-        return "user-edit";
-    }
-    
-    @PostMapping("/staff/update")
-    public String updateProduct(@Valid @ModelAttribute("staff") RegistrationDto userDto, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-//            model.addAttribute("product", productDto);
-            return "user-edit";
-        }
+	@GetMapping("/staff/{userId}/edit")
+	public String createProductForm(@PathVariable("userId") Long productId, Model model) {
+		RegistrationDto registrationDto = staffService.findStaffById(productId);
+		model.addAttribute("staff", registrationDto);
+		return "user-edit";
+	}
 
-        staffService.saveStaff(userDto);
-        return "redirect:/staff/" +userDto.getId() + "?productUpdateSuccess";
-    }
+	@PostMapping("/staff/update")
+	public String updateProduct(@Valid @ModelAttribute("staff") RegistrationDto userDto, BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			// model.addAttribute("product", productDto);
+			return "user-edit";
+		}
+
+		staffService.saveStaff(userDto);
+		return "redirect:/staff/" + userDto.getId() + "?productUpdateSuccess";
+	}
+
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		return "access-denied";
+	}
+
 }
