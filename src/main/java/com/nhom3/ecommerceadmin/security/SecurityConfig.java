@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/login", "/register/**", "/css/**", "/images/**", "/js/**", "/vendor/**", "/")
                         .permitAll()
-                        .requestMatchers("/staff/**", "/staffs/**", "/staffs").hasAuthority("ADMIN")
+                        .requestMatchers("/staff/**", "/staffs/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 // .authorizeHttpRequests(request -> request
                 // .anyRequest()
