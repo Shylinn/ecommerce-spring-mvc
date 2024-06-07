@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -29,37 +28,30 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/register/**", "/css/**", "/images/**", "/js/**", "/vendor/**", "/")
+                        .requestMatchers("/login", "/register/**", "/css/**", "/images/**", "/js/**", "/vendor/**","/")
                         .permitAll()
-                        .requestMatchers("/staff/**", "/staffs/**").hasAuthority("ADMIN")
-                        .anyRequest().authenticated())
-                // .authorizeHttpRequests(request -> request
-                // .anyRequest()
-                // .authenticated()
-                // )
+                )
+                .authorizeHttpRequests(request -> request
+                        .anyRequest()
+                        .authenticated()
+                )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/login-success", true) // always use = true, nếu không trang web sẽ lỗi
+                        .defaultSuccessUrl("/login-success", true)  // always use = true, nếu không trang web sẽ lỗi
                         .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
-                        .permitAll())
-                .logout(
+                        .permitAll()
+                ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/login?logoutSuccess=true")
-                                .permitAll())
-                .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(accessDeniedHandler()));
+                                .permitAll()
+                );
 
         return http.build();
-    }
-
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, accessDeniedException) -> response.sendRedirect("/access-denied");
     }
 
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
