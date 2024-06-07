@@ -9,13 +9,10 @@ public class BillMapper {
 
     public static Bill mapToBill(BillDto billDto){
         Bill bill = Bill.builder()
-                .id(billDto.getId())
-                .createdAt(billDto.getCreatedAt())
+
                 .staff(billDto.getStaff())
                 .customer(billDto.getCustomer())
-                .value(billDto.getValue())
-                .updatedOn(billDto.getUpdatedOn())
-                .details(billDto.getDetails())
+
                 .build();
         return bill;
     }

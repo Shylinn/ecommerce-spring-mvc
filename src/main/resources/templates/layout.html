@@ -120,16 +120,16 @@
             <li class=" ">
               <a href="#user" class="collapsed" data-toggle="collapse" aria-expanded="false">
                 <svg class="svg-icon" id="p-dash10" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                     stroke-linejoin="round">
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
                   <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="8.5" cy="7" r="4"></circle>
                   <polyline points="17 11 19 13 23 9"></polyline>
                 </svg>
                 <span class="ml-4">Người dùng</span>
                 <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20"
-                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="10 15 15 20 20 15"></polyline>
                   <path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                 </svg>
@@ -147,7 +147,29 @@
                 </li>
               </ul>
             </li>
-
+            <li class=" ">
+              <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                <svg class="svg-icon" id="p-dash5" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                <span class="ml-4">Hóa đơn</span>
+                <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                </svg>
+              </a>
+              <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                <li class="">
+                  <a th:href="@{/bills}">
+                    <i class="las la-minus"></i><span>Danh sách hóa đơn</span>
+                  </a>
+                </li>
+                <li class="">
+                  <a th:href="@{/bills/new}">
+                    <i class="las la-minus"></i><span>Thêm hóa đơn</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class=" ">
               <a href="#otherpage" class="collapsed" data-toggle="collapse" aria-expanded="false">
                 <svg class="svg-icon" id="p-dash9" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
@@ -170,8 +192,8 @@
                 <li class=" ">
                   <a href="#auth" class="collapsed" data-toggle="collapse" aria-expanded="false">
                     <svg class="svg-icon" id="p-dash12" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                       <polyline points="14 2 14 8 20 8"></polyline>
                       <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -180,8 +202,8 @@
                     </svg>
                     <span class="ml-4">Authentication</span>
                     <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20"
-                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="10 15 15 20 20 15"></polyline>
                       <path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                     </svg>
@@ -230,10 +252,6 @@
             </a>
           </div>
           <div class="iq-search-bar device-search">
-            <form action="#" class="searchbox">
-              <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-              <input type="text" class="text search-input" placeholder="Tìm kiếm...">
-            </form>
           </div>
           <div class="d-flex align-items-center">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -278,7 +296,8 @@
                           <p sec:authorize="isAuthenticated()" class="mb-0" th:text="${session.staff.email}"
                             th:unless="${session.staff == null}"></p>
                           <div class="d-flex align-items-center justify-content-center mt-3">
-                            <a sec:authorize="isAuthenticated()" th:href="@{/staff/{userId}(userId=${session.staff.id})}" class="btn border mr-2">Xem hồ sơ</a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/staff/{userId}(userId=${session.staff.id})}"
+                               th:unless="${session.staff == null}" class="btn border mr-2">Xem hồ sơ</a>
                             <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn border">Đăng xuất</a>
                             <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn border mr-2">Tạo tài
                               khoản</a>
@@ -324,17 +343,19 @@
   <script th:src="@{/js/backend-bundle.min.js}"></script>
 
   <!-- Table Treeview JavaScript -->
-  <script th:src="@{/js/table-treeview.js}"></script>
+  <!-- <script th:src="@{/js/table-treeview.js}"></script> -->
 
   <!-- Chart Custom JavaScript -->
-  <script th:src="@{/js/customizer.js}"></script>
+  <!-- <script th:src="@{/js/customizer.js}"></script> -->
 
   <!-- Chart Custom JavaScript -->
-  <script async th:src="@{/js/chart-custom.js}"></script>
- 
+  <!-- <script async th:src="@{/js/chart-custom.js}"></script> -->
+
   <!-- app JavaScript -->
+
   <script th:src="@{/js/app.js}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 </body>
 

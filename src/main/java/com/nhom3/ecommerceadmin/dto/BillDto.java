@@ -26,6 +26,7 @@ public class BillDto {
 
     private Staff staff;
 
+    @NotEmpty(message = "Nhập tên khách hàng")
     private Customer customer;
 
     @Transient // Exclude from persistence

@@ -100,6 +100,16 @@ public class CustomerController {
         excelExportService.exportToExcel(response, customers);
     }
 
+    @GetMapping("/customers/export/template")
+    public void exportTemplate(HttpServletResponse response) throws IOException {
+        excelExportService.exportTemplate(response);
+    }
+
+    @GetMapping("/customers/upload")
+    public String importExcelPage() {
+        return "customer-upload";
+    }
+
     @PostMapping("/customers/upload")
     public String importExcel(@RequestParam("file") MultipartFile file) {
         List<Customer> customerList;
