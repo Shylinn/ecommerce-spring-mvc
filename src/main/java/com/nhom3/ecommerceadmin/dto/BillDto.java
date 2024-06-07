@@ -1,34 +1,32 @@
-package com.nhom3.ecommerceadmin.models;
+package com.nhom3.ecommerceadmin.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.nhom3.ecommerceadmin.models.BillDetails;
+import com.nhom3.ecommerceadmin.models.Customer;
+import com.nhom3.ecommerceadmin.models.Staff;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "bills")
-public class Bill {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BillDto {
     private Long id;
 
-    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    // staff that created the bill
-    @ManyToOne
-    @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @NotEmpty(message = "Nhập tên khách hàng")
     private Customer customer;
 
     @Transient // Exclude from persistence
@@ -37,9 +35,7 @@ public class Bill {
         return this.details.stream().mapToDouble(detail -> detail.getProduct().getPrice()*detail.getQuantity()).sum();
     }
 
-    @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.REMOVE)
     private Set<BillDetails> details;
 }

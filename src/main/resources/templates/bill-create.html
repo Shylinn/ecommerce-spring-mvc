@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Thêm hóa đơn mới</title>
+</head>
+<div class="content-page" layout:fragment="body">
+        <div class="container-fluid add-form-list">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Thêm hóa đơn mới</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" role="form" th:action="@{/bills/new}" th:object="${bill}" data-toggle="validator"
+                                  enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tên khách hàng *</label>
+                                            <select class="selectpicker form-control" data-style="py-0" name="customer" id="customer" th:field="*{customer}">
+                                                <option th:each="cus: ${customers}" th:value="${cus.id}" th:text="${cus.fullName}"></option>
+                                            </select>
+                                            <div class="help-block with-errors"><p class="text-danger" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></p></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Mã nhân viên *</label>
+                                            <input type="number" class="form-control" name="staff" id="staff" th:value = "${session.staff.id}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2">Tạo hóa đơn</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</html>
