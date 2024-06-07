@@ -29,31 +29,35 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     }
 
+    // @Override
+    // public UserDetails loadUserByUsername(String username) throws
+    // UsernameNotFoundException {
+    // Staff user = staffRepository.findFirstByUsername(username);
+    // if (user != null) {
+    // User authUser = new User(
+    // user.getUsername(),
+    // user.getPassword(),
+    // user.getRoles().stream().map((role) -> new
+    // SimpleGrantedAuthority(role.getName()))
+    // .collect(Collectors.toList()));
+    // return authUser;
+    // } else {
+    // throw new UsernameNotFoundException("Sai tên đăng nhập hoặc mật khẩu");
+    // }
+
+    // }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Staff user = staffRepository.findFirstByUsername(username);
-        if (user != null) {
-            User authUser = new User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    user.getRoles().stream().map((role) -> new SimpleGrantedAuthority(role.getName()))
-                            .collect(Collectors.toList()));
-            return authUser;
-        } else {
-            throw new UsernameNotFoundException("Sai tên đăng nhập hoặc mật khẩu");
+        Staff staff = staffRepository.findByUsername(username);
+        if (staff == null) {
+            throw new UsernameNotFoundException("Staff not found");
         }
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(String username) {
-        List<Role> roles = staffRepository.findFirstByUsername(username).getRoles();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-
-        return authorities;
+        return new org.springframework.security.core.userdetails.User(
+                staff.getUsername(),
+                staff.getPassword(),
+                staff.getRoles().stream()
+                        .map(role -> new SimpleGrantedAuthority(role.getName()))
+                        .collect(Collectors.toList()));
     }
 
 }

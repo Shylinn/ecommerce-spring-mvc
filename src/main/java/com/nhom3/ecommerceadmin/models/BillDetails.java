@@ -27,4 +27,15 @@ public class BillDetails {
 
     private int quantity;
 
+    @Transient
+    private Double totalPrice; // This field is not persisted in the database
+
+    public void calculateTotalPrice() {
+        if (product != null && product.getPrice() != null) {
+            this.totalPrice = this.quantity * product.getPrice() * 1.00;
+        } else {
+            this.totalPrice = 0.0; // Or handle this case as needed
+        }
+    }
+
 }

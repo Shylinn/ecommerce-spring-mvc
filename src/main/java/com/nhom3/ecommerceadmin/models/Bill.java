@@ -34,9 +34,22 @@ public class Bill {
 
     private Double value;
 
+    public Double getTotalAmount() {
+        return details.stream()
+                .mapToDouble(BillDetails::getTotalPrice)
+                .sum();
+    }
+
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "bill")
     private Set<BillDetails> details;
+
+    @Transient
+    private String customerName;
+
+    @Transient
+    private String staffName;
+
 }
