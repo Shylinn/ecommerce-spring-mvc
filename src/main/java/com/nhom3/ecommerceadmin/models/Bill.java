@@ -31,7 +31,11 @@ public class Bill {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @Transient // Exclude from persistence
     private Double value;
+    public double getValue(){
+        return this.details.stream().mapToDouble(detail -> detail.getProduct().getPrice()*detail.getQuantity()).sum();
+    }
 
     @UpdateTimestamp
     private LocalDateTime updatedOn;
