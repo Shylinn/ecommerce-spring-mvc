@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org" layout:decorate="~{layout}">
-
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
 <head>
     <title>Trang chủ</title>
 </head>
-<section layout:fragment="body">
-    <div th:if="${param.loginSuccess}" class="alert alert-success">
-        Bạn đã đăng nhập thành công!
-    </div>
-
-    <!--        <div sec:authorize="isAuthenticated()" th:text="@{staff.fullName}" class="alert alert-success"></div>-->
-    <!--        <div sec:authorize="isAuthenticated()" th:text="@{email}" class="alert alert-success"></div>-->
-</section>
-
+    <section layout:fragment="body">
+        <div th:if="${param.loginSuccess}" class="alert alert-success">
+            Bạn đã đăng nhập thành công!
+        </div>
+<!--        <div sec:authorize="isAuthenticated()" th:text="@{staff.fullName}" class="alert alert-success"></div>-->
+<!--        <div sec:authorize="isAuthenticated()" th:text="@{email}" class="alert alert-success"></div>-->
+    </section>
 </html>
