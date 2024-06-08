@@ -15,46 +15,51 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private CustomUserDetailsService userDetailsService;
+        private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+        @Autowired
+        public SecurityConfig(CustomUserDetailsService userDetailsService) {
+                this.userDetailsService = userDetailsService;
+        }
 
-    @Bean
-    public static PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public static PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/register/**", "/css/**", "/images/**", "/js/**", "/vendor/**","/")
-                        .permitAll()
-                )
-                .authorizeHttpRequests(request -> request
-                        .anyRequest()
-                        .authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/login-success", true)  // always use = true, nếu không trang web sẽ lỗi
-                        .loginProcessingUrl("/login")
-                        .failureUrl("/login?error=true")
-                        .permitAll()
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/login?logoutSuccess=true")
-                                .permitAll()
-                );
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http.csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers("/login", "/register/**", "/css/**", "/images/**",
+                                                                "/js/**", "/vendor/**", "/")
+                                                .permitAll()
 
-        return http.build();
-    }
+                                )
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers("/staff/**", "/staffs/**").hasAuthority("ADMIN"))
+                                .authorizeHttpRequests(request -> request
+                                                .anyRequest()
+                                                .authenticated())
+                                .formLogin(form -> form
+                                                .loginPage("/login")
+                                                .defaultSuccessUrl("/login-success", true) // always use = true, nếu
+                                                                                           // không trang web sẽ lỗi
+                                                .loginProcessingUrl("/login")
+                                                .failureUrl("/login?error=true")
+                                                .permitAll())
+                                .logout(
+                                                logout -> logout
+                                                                .logoutRequestMatcher(
+                                                                                new AntPathRequestMatcher("/logout"))
+                                                                .logoutSuccessUrl("/login?logoutSuccess=true")
+                                                                .permitAll())
+                                .exceptionHandling(eh -> eh.accessDeniedPage("/access-deny"));
 
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+                return http.build();
+        }
+
+        public void configure(AuthenticationManagerBuilder builder) throws Exception {
+                builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        }
 }
