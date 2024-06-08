@@ -17,12 +17,6 @@
 </head>
 
 <body class="  ">
-  <!-- loader Start -->
-  <div id="loading">
-    <div id="loading-center">
-    </div>
-  </div>
-  <!-- loader END -->
   <!-- Wrapper Start -->
   <div class="wrapper">
     <div th:fragment="sidebar" class="iq-sidebar  sidebar-default ">
@@ -169,17 +163,15 @@
                     <i class="las la-minus"></i><span>Danh sách hóa đơn</span>
                   </a>
                 </li>
-                <li class="">
-                  <a th:href="@{/bills/new}">
+                <li class="" >
+                  <a th:href="@{/bills/new}" >
                     <i class="las la-minus"></i><span>Thêm hóa đơn</span>
                   </a>
                 </li>
               </ul>
             </li>
-
           </ul>
         </nav>
-
         <div class="p-3"></div>
 
       </div>
@@ -288,6 +280,7 @@
   <script th:src="@{/js/backend-bundle.min.js}"></script>
 
   <script th:src="@{/js/app.js}"></script>
+  <script th:src="@{/js/edit-bill.js}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
