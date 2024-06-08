@@ -31,13 +31,13 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="form-group" hidden="hidden">
                                             <label>Mã nhân viên *</label>
-                                            <input type="number" class="form-control" name="staff" id="staff" th:value = "${session.staff.id}">
+                                            <input disabled type="number" class="form-control" name="staff" id="staff" th:value = "${session.staff.id}">
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2">Tạo hóa đơn</button>
+                                <button type="submit" class="btn btn-primary mr-2">Điền chi tiết hóa đơn</button>
                             </form>
                         </div>
                     </div>
