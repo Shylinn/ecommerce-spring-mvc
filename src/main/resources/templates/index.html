@@ -2,16 +2,50 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org"
       layout:decorate="~{layout}">
 <head>
     <title>Trang chủ</title>
 </head>
-    <section layout:fragment="body">
-        <div th:if="${param.loginSuccess}" class="alert alert-success">
-            Bạn đã đăng nhập thành công!
+<div class="content-page" layout:fragment="body">
+<div class="container">
+    <div th:if="${param.loginSuccess}" class="alert alert-success">
+        Bạn đã đăng nhập thành công!
+    </div>
+    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Số lượng sản phẩm</h5>
+                    <p class="card-text" th:text="${productCount}"></p>
+                </div>
+            </div>
         </div>
-<!--        <div sec:authorize="isAuthenticated()" th:text="@{staff.fullName}" class="alert alert-success"></div>-->
-<!--        <div sec:authorize="isAuthenticated()" th:text="@{email}" class="alert alert-success"></div>-->
-    </section>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Số lượng khách hàng</h5>
+                    <p class="card-text" th:text="${customerCount}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Số lượng người dùng</h5>
+                    <p class="card-text" th:text="${userCount}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Số lượng hóa đơn</h5>
+                    <p class="card-text" th:text="${billCount}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </html>
