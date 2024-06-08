@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Trang bị lỗi</title>
+
+</head>
+
+<div class="content-page" layout:fragment="body">
+    <div class="card text-center">
+        <div class="card-header">
+            <h3>Cảnh báo</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Trang không tồn tại</h5>
+            <p class="card-text">Vui lòng liên hệ bộ phận IT.</p>
+            <a th:href="@{/index}" class="btn btn-primary">Trở về trang chủ</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+</html>
