@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.nhom3.ecommerceadmin.Utilities.getStringCellValue;
@@ -67,19 +68,30 @@ public class ProductServiceImpl implements ProductService {
         int rowNum = 1;
         for (Product product : products) {
             Row row = sheet.createRow(rowNum++);
-            row.createCell(0).setCellValue(product.getId());
-            row.createCell(1).setCellValue(product.getName());
-            row.createCell(2).setCellValue(product.getCode());
-            row.createCell(3).setCellValue(product.getPhotoUrl());
-            row.createCell(4).setCellValue(product.getUnit());
-            row.createCell(5).setCellValue(product.getQuantity());
-            row.createCell(6).setCellValue(product.getPrice());
-            row.createCell(7).setCellValue(product.getAuthor());
-            row.createCell(8).setCellValue(product.getPublisher());
-            row.createCell(9).setCellValue(product.getGenre());
-            row.createCell(10).setCellValue(product.getDescription());
-            row.createCell(11).setCellValue(product.getCreatedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            row.createCell(12).setCellValue(product.getUpdatedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+
+            row.createCell(0).setCellValue(Objects.toString(product.getId(), ""));
+            row.createCell(1).setCellValue(Objects.toString(product.getName(), ""));
+            row.createCell(2).setCellValue(Objects.toString(product.getCode(), ""));
+            row.createCell(3).setCellValue(Objects.toString(product.getPhotoUrl(), ""));
+            row.createCell(4).setCellValue(Objects.toString(product.getUnit(), ""));
+            row.createCell(5).setCellValue(Objects.toString(product.getQuantity(), ""));
+            row.createCell(6).setCellValue(Objects.toString(product.getPrice(), ""));
+            row.createCell(7).setCellValue(Objects.toString(product.getAuthor(), ""));
+            row.createCell(8).setCellValue(Objects.toString(product.getPublisher(), ""));
+            row.createCell(9).setCellValue(Objects.toString(product.getGenre(), ""));
+            row.createCell(10).setCellValue(Objects.toString(product.getDescription(), ""));
+
+            if (product.getCreatedOn() != null) {
+                row.createCell(11).setCellValue(product.getCreatedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            } else {
+                row.createCell(11).setCellValue("");
+            }
+
+            if (product.getUpdatedOn() != null) {
+                row.createCell(12).setCellValue(product.getUpdatedOn().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            } else {
+                row.createCell(12).setCellValue("");
+            }
         }
 
         // Set content type and headers for the response
