@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Trang tạo tài khoản</title>
+</head>
+<div class="content-page" layout:fragment="body">
+    <div class="container" >
+            <div class="row align-items-center justify-content-center height-self-center">
+               <div class="col-lg-8">
+                  <div class="card auth-card">
+                     <div class="card-body p-0">
+                        <div class="d-flex align-items-center auth-content">
+                           <div class="col-lg-7 align-self-center">
+                              <div class="p-3">
+                                 <h2 class="mb-2">Tạo tài khoản</h2>
+                                  <div th:if="${param.fail}" class="alert alert-success">
+                                      Đã có tài khoản trung tên đăng nhập hoặc email</div>
+                                  <form method="post" role="form" th:action="@{/register/save}" th:object="${staff}">
+                                    <div class="row">
+                                       <div class="col-lg-6">
+                                          <div class="floating-label form-group">
+                                              <label for="fullName">Họ và tên *</label>
+                                             <input class="floating-input form-control"
+                                                    type="text"
+                                                    placeholder=" "
+                                                    name="fullName"
+                                                    id="fullName"
+                                                    th:field="*{fullName}"
+                                             >
+                                              <p th:if="${#fields.hasErrors('fullName')}" class="text-danger" th:errors="*{fullName}"></p>
+                                          </div>
+                                       </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="floating-label form-group">
+                                                <label for="username">Tên đăng nhập *</label>
+                                                <input
+                                                        type="text"
+                                                        name="username"
+                                                        id="username"
+                                                        class="floating-input form-control"
+                                                        placeholder=" "
+                                                        th:field="*{username}">
+                                                <p th:if="${#fields.hasErrors('username')}" class="text-danger" th:errors="*{username}"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="floating-label form-group">
+                                                <label for="email">Email *</label>
+                                                <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        class="floating-input form-control"
+                                                        placeholder=" "
+                                                        th:field="*{email}">
+                                                <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="floating-label form-group">
+                                                <label for="password">Mật khẩu *</label>
+                                                <input
+                                                        type="password"
+                                                        name="password"
+                                                        id="password"
+                                                        class="floating-input form-control"
+                                                        placeholder=" "
+                                                        th:field="*{password}">
+                                                <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="floating-label form-group">
+                                                <label for="joinOn">Ngày vào làm</label>
+                                                <input
+                                                        type="date"
+                                                        name="joinOn"
+                                                        id="joinOn"
+                                                        class="floating-input form-control"
+                                                        placeholder=" "
+                                                        th:field="*{joinOn}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="floating-label form-group">
+                                                <label for="password">Xác nhận mật khẩu *</label>
+                                                <input
+                                                        type="password"
+                                                        name="passwordConfirm"
+                                                        id="passwordConfirm"
+                                                        class="floating-input form-control"
+                                                        placeholder=" "
+                                                        th:field="*{passwordConfirm}">
+                                                <p th:if="${#fields.hasErrors('passwordConfirm')}" class="text-danger" th:errors="*{passwordConfirm}"></p>
+                                                <p th:if="${wrongPwConfirm}" class="text-danger">Mật khẩu không trùng khớp</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
+                                    <p class="mt-3">
+                                       Bạn đã có tài khoản ? <a th:href="@{/login}" class="text-primary">Đăng nhập</a>
+                                    </p>
+                                 </form>
+                              </div>
+                           </div>
+                           <div class="col-lg-5 content-right">
+                              <img th:src="@{images/login/01.png}" class="img-fluid image-right" alt="">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+</div>
+</html>
