@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Xem chi tiết hóa đơn</title>
+</head>
+<body>
+<div class="content-page" layout:fragment="body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Chi tiết hóa đơn</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Mã hóa đơn:</label>
+                            <span th:text="${bill.id}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày tạo:</label>
+                            <span th:text="${#temporals.format(bill.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Nhân viên tạo HĐ:</label>
+                            <span th:text="${bill.staff.fullName}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Khách hàng:</label>
+                            <span th:text="${bill.customer.fullName}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Giá trị hóa đơn:</label>
+                            <span th:text="'VNĐ '+${#numbers.formatDecimal(bill.value, 0, 'POINT', 0, 'COMMA')}"></span>
+                        </div>
+                        <div class="form-group">
+                            <h5>Chi tiết hóa đơn</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá</th>
+                                    <th>Tổng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="detail : ${bill.details}">
+                                    <td th:text="${detail.product.name}"></td>
+                                    <td th:text="${detail.quantity}"></td>
+                                    <td th:text="'VNĐ '+${#numbers.formatDecimal(detail.product.price, 0, 'POINT', 0, 'COMMA')}"></td>
+                                    <td th:text="'VNĐ '+${#numbers.formatDecimal(detail.product.price * detail.quantity, 0, 'POINT', 0, 'COMMA')}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <a th:href="@{/bills}" class="btn btn-primary">Quay lại</a>
+                            <a th:href="@{/bills/{billId}/export/pdf(billId=${bill.id})}" class="btn btn-secondary">Xuất PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

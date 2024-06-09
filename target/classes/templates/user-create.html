@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Thêm nhân viên</title>
+<style type="text/css">
+.cl-r {
+	color: red;
+}
+#togglePassword{
+	position: absolute;
+    right: 30px;
+    top: 45px;
+}
+</style>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+</head>
+	<div class="content-page" layout:fragment="body">
+		<div class="container-fluid add-form-list">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-header d-flex justify-content-between">
+							<div class="header-title">
+								<h4 class="card-title">Thêm nhân viên</h4>
+							</div>
+						</div>
+						<div class="card-body">
+							<div th:if="${param.fail}" class="alert alert-danger">
+                                      Đã có tài khoản trung tên đăng nhập hoặc email</div>
+							<form method="post" role="form" th:action="@{/staff/new}"
+								th:object="${staff}" data-toggle="validator">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Tên nhân viên <span class="cl-r">*</span></label> <input
+												type="text" class="form-control"
+												placeholder="Nhập tên nhân viên" th:field="*{fullName}"
+												id="name-employee">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('fullName')}"
+													th:errors="*{fullName}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Email <span class="cl-r">*</span></label> <input
+												type="text" class="form-control"
+												placeholder="Nhập mã email"
+												data-errors="Hãy nhập email." th:field="*{email}"
+												id="code-employee">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('email')}"
+													th:errors="*{email}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Username <span class="cl-r">*</span></label> <input
+												type="text" class="form-control"
+												placeholder="Nhập tên đăng nhập"
+												data-errors="Hãy nhập tên đăng nhập" th:field="*{username}"
+												id="code-employee">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('username')}"
+													th:errors="*{username}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Password <span class="cl-r">*</span></label> <input
+												type="password" class="form-control"
+												placeholder="Nhập mã password"
+												data-errors="Hãy nhập password" th:field="*{password}"> 
+												<input type="hidden" name="passwordConfirm" id="passwordConfirm"> 
+												<i class="bi bi-eye-slash" id="togglePassword"></i>
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Ngày làm việc</label> <input
+												type="date" class="form-control" placeholder="Ngày làm việc"
+												data-errors="Hãy nhập ngày làm việc." th:field="*{joinOn}"
+												id="dateWork">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('joinOn')}"
+													th:errors="*{joinOn}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Số điện thoại</label> <input
+												type="number" class="form-control"
+												placeholder="Số điện thoại"
+												data-errors="Hãy nhập số điên thoại." th:field="*{phoneNum}"
+												id="phone">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('phoneNum')}"
+													th:errors="*{phoneNum}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>CCCD</label> <input
+												type="number" class="form-control" placeholder="CCCD"
+												data-errors="Hãy nhập CCCD." th:field="*{idCardNum}"
+												id="idCardNum">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('idCardNum')}"
+													th:errors="*{idCardNum}"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Địa chỉ</label> <input
+												type="text" class="form-control" placeholder="Địa chỉ"
+												data-errors="Hãy nhập địa chỉ." th:field="*{address}"
+												id="address">
+											<div class="help-block with-errors">
+												<p class="cl-r" th:if="${#fields.hasErrors('address')}"
+													th:errors="*{address}"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary mr-2">Thêm
+									nhân viên</button>
+								<button type="reset" class="btn btn-danger">Xóa thông
+									tin đã nhập</button>
+							</form>
+							<script type="text/javascript">
+								const togglePassword = document.querySelector('#togglePassword');
+								const password = document.querySelector('#password');
+								togglePassword.addEventListener('click', () => {
+								    // Toggle the type attribute using
+								    // getAttribure() method
+							    	const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+							   		password.setAttribute('type', type);
+							    	// Toggle the eye and bi-eye icon
+							    	this.classList.toggle('bi-eye');
+								});
+								password.addEventListener('input', (e) => {
+									const passwordConfirm = document.querySelector('#passwordConfirm');
+									passwordConfirm.value = e.target.value;
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>
