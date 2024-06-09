@@ -1,7 +1,6 @@
 package com.nhom3.ecommerceadmin.controller;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.dto.RegistrationDto;
 import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.service.StaffService;
@@ -31,14 +28,12 @@ public class StaffController {
 	public String createUserForm(Model model) {
 		Staff staff = new Staff();
 		model.addAttribute("staff", staff);
-//      model.addAttribute("productActive",true);
 		return "user-create";
 	}
 
 	@PostMapping("/staff/new")
 	public String saveUser(@Valid @ModelAttribute("staff") RegistrationDto userDto, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-//          model.addAttribute("product", productDto);
 			return "user-create";
 		}
 		Staff existingUserEmail = staffService.findByEmail(userDto.getEmail());
@@ -84,7 +79,6 @@ public class StaffController {
     @PostMapping("/staff/update")
     public String updateProduct(@Valid @ModelAttribute("staff") RegistrationDto userDto, BindingResult result, Model model) {
         if(result.hasErrors()) {
-//            model.addAttribute("product", productDto);
             return "user-edit";
         }
 

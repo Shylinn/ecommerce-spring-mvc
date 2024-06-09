@@ -22,7 +22,7 @@ public class Bill {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    // staff that created the bill
+    // Nhân viên tạo hóa đơn
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
@@ -31,7 +31,7 @@ public class Bill {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Transient // Exclude from persistence
+    @Transient // Loại bỏ khỏi persistence
     private Double value;
     public double getValue(){
         return this.details.stream().mapToDouble(detail -> detail.getProduct().getPrice()*detail.getQuantity()).sum();

@@ -1,9 +1,7 @@
 package com.nhom3.ecommerceadmin.mapper;
 
 import com.nhom3.ecommerceadmin.dto.BillDto;
-import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Bill;
-import com.nhom3.ecommerceadmin.models.Product;
 
 public class BillMapper {
 

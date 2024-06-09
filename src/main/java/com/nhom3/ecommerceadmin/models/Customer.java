@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,13 +23,12 @@ public class Customer {
     private String address;
     private String phoneNum;
     private String email;
-    // @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDate dayOfBirth;
 
     @CreationTimestamp
     private LocalDateTime registeredAt;
 
-    @Transient // Exclude from persistence
+    @Transient // Loại bỏ khỏi persistence
     private Double sales;
 
     public LocalDate getdayOfBirth() {

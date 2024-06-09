@@ -1,13 +1,10 @@
 package com.nhom3.ecommerceadmin.service.impl;
 
-import com.nhom3.ecommerceadmin.dto.ProductDto;
 import com.nhom3.ecommerceadmin.models.Image;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
 import com.nhom3.ecommerceadmin.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static com.nhom3.ecommerceadmin.mapper.ProductMapper.mapToProduct;
 
 @Service
 public class ImageServiceImpl implements ImageService {

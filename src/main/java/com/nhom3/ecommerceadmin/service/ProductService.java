@@ -1,7 +1,6 @@
 package com.nhom3.ecommerceadmin.service;
 
 import com.nhom3.ecommerceadmin.dto.ProductDto;
-import com.nhom3.ecommerceadmin.models.Product;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +16,5 @@ public interface ProductService {
 
     void addProductsFromExcel(MultipartFile file) throws IOException;
     void deleteProductById(Long id);
-
     ProductDto findProductById(Long productId);
 }

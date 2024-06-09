@@ -2,7 +2,6 @@ package com.nhom3.ecommerceadmin.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.Serializable;

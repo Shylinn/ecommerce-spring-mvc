@@ -59,7 +59,7 @@ public class CustomerController {
 
     @GetMapping("/customers/checkDuplicate")
     public ResponseEntity<Boolean> checkDuplicateCustomer(@RequestParam("fullName") String fullName) {
-        // Perform database query to check if the customer exists
+        // Check xem tên khách hàng đã bị trùng chưa
         boolean customerExists = customerRepository.existsByFullName(fullName);
 
         if (customerExists) {

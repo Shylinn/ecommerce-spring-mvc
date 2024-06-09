@@ -42,7 +42,7 @@ public class Staff {
     )
     private List<Role> roles = new ArrayList<>();
 
-    @Transient // Exclude from persistence
+    @Transient // Loại bỏ khỏi persistence
     private Double sales;
     public Double getSales() {
         return this.bills.stream().mapToDouble(Bill::getValue).sum();

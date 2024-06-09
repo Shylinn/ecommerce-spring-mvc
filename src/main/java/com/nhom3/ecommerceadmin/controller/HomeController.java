@@ -1,13 +1,9 @@
 package com.nhom3.ecommerceadmin.controller;
 
-import com.nhom3.ecommerceadmin.models.Customer;
 import com.nhom3.ecommerceadmin.models.Image;
-import com.nhom3.ecommerceadmin.models.Staff;
 import com.nhom3.ecommerceadmin.repository.CustomerRepository;
 import com.nhom3.ecommerceadmin.repository.ImageRepository;
-import com.nhom3.ecommerceadmin.security.SecurityUtil;
 import com.nhom3.ecommerceadmin.service.BillService;
-import com.nhom3.ecommerceadmin.service.ImageService;
 import com.nhom3.ecommerceadmin.service.ProductService;
 import com.nhom3.ecommerceadmin.service.StaffService;
 import jakarta.servlet.http.HttpSession;

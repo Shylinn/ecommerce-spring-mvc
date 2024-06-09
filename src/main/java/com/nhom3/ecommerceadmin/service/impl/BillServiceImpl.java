@@ -1,7 +1,6 @@
 package com.nhom3.ecommerceadmin.service.impl;
 
 
-import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
@@ -11,7 +10,6 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.UnitValue;
 
 import java.io.*;
@@ -76,29 +74,29 @@ public class BillServiceImpl implements BillService {
         Document document = new Document(pdfDoc);
 
         try {
-            // Load the font from the resources folder
+            // Lấy font từ resources folder
             String fontPath = getClass().getResource("/static/fonts/Roboto-Regular.ttf").getPath();
             PdfFont font = PdfFontFactory.createFont(fontPath, PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
 
-            // Date formatter for Vietnamese locale
+            // Sửa Date formatter sang Vietnamese locale
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.forLanguageTag("vi-VN"));
 
-            // Number formatter for Vietnamese currency
+            // Sửa Number formatter sang đơn vị Việt Nam
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
-            // Add title
+            // Ghi tiêu đề hóa đơn
             document.add(new Paragraph("Chi tiết hóa đơn")
                     .setFont(font)
                     .setFontSize(18));
 
-            // Add bill information
+            // Ghi thông tin chung bill
             document.add(new Paragraph("Mã hóa đơn: " + billDto.getId()).setFont(font));
             document.add(new Paragraph("Ngày tạo: " + billDto.getCreatedAt().format(dateFormatter)).setFont(font));
             document.add(new Paragraph("Nhân viên tạo HĐ: " + billDto.getStaff().getFullName()).setFont(font));
             document.add(new Paragraph("Khách hàng: " + billDto.getCustomer().getFullName()).setFont(font));
             document.add(new Paragraph("Giá trị hóa đơn: " + currencyFormatter.format(billDto.getValue())).setFont(font));
 
-            // Add bill details table
+            // Ghi thông tin chi tiết hóa đơn
             document.add(new Paragraph("Chi tiết hóa đơn:")
                     .setFont(font)
                     .setFontSize(14));

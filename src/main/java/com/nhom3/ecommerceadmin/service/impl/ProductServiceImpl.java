@@ -1,6 +1,5 @@
 package com.nhom3.ecommerceadmin.service.impl;
 
-import com.nhom3.ecommerceadmin.Utilities;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -52,11 +51,11 @@ public class ProductServiceImpl implements ProductService {
     public void exportProductsToExcel(HttpServletResponse response) throws IOException {
         List<Product> products = productRepository.findAll();
 
-        // Create Excel workbook and sheet
+        // Tạo Excel workbook và sheet
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Products");
 
-        // Create header row
+        // Tạo dòng header
         Row headerRow = sheet.createRow(0);
         String[] headers = {"ID", "Name", "Code", "Photo URL", "Unit", "Quantity", "Price", "Author", "Publisher", "Genre", "Description", "Created On", "Updated On"};
         for (int i = 0; i < headers.length; i++) {
@@ -64,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
             cell.setCellValue(headers[i]);
         }
 
-        // Fill data rows
+        // Tạo các dòng dữ liệu
         int rowNum = 1;
         for (Product product : products) {
             Row row = sheet.createRow(rowNum++);
@@ -94,11 +93,11 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        // Set content type and headers for the response
+        // Thiết lập content type và headers cho response
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=products.xlsx");
 
-        // Write Excel workbook to the response output stream
+        // Ghi Excel workbook sang output stream của response
         workbook.write(response.getOutputStream());
         workbook.close();
     }

@@ -46,7 +46,7 @@ public class AuthController {
         HttpSession session = request.getSession();
         session.setAttribute("staff", staff);
 
-        return "redirect:/index?loginSuccess=true"; // Điều hướng tới trang home sau khi đăng nhập thành công
+        return "redirect:/index?loginSuccess=true"; // Điều hướng tới trang index sau khi đăng nhập thành công
     }
 
     @GetMapping("/register")
@@ -72,7 +72,6 @@ public class AuthController {
             return "redirect:/register?fail";
         }
         if(result.hasErrors()) {
-//            model.addAttribute("staff", staff);
             return "register";
         }
         if(!Objects.equals(staff.getPasswordConfirm(), staff.getPassword())) {

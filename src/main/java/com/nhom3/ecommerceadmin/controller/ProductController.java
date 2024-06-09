@@ -55,7 +55,6 @@ public class ProductController {
     public String createProductForm(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
-//        model.addAttribute("productActive",true);
         return "product-create";
     }
 
@@ -63,7 +62,6 @@ public class ProductController {
     public String listProductPage(Model model) {
         List<ProductDto> products = productService.findAllProducts();
         model.addAttribute("products", products);
-//        model.addAttribute("productActive",true);
         return "product-list";
     }
 
@@ -103,7 +101,6 @@ public class ProductController {
     public String saveProduct(@Valid @ModelAttribute("product") ProductDto productDto
             , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo) {
         if(result.hasErrors()) {
-//            model.addAttribute("product", productDto);
             return "product-create";
         }
         setPhotoUrl(productDto, photo);
@@ -116,7 +113,6 @@ public class ProductController {
             , BindingResult result, Model model, @RequestParam("photo") MultipartFile photo
             , @RequestParam("delete-image") String isDeleteImage) {
         if(result.hasErrors()) {
-//            model.addAttribute("product", productDto);
             return "product-edit";
         }
         setPhotoUrl(productDto, photo);

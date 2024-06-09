@@ -18,8 +18,4 @@ public interface BillService {
 
     BillDto findBillById(Long billId);
     void updateBillDetails(BillDto updatedBillDto);
-//    Club saveClub(ClubDto clubDto);
-//    ClubDto findClubById(Long clubId);
-//    void delete(Long clubId);
-//    List<ClubDto> searchClubs(String query);
 }
